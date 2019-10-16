@@ -33,5 +33,6 @@ void Hackamon::run(std::string gameStartType) {
         Player player = Player(name);
 
         std::cout << player.getPlayerName() << std::endl;
+        displayTextLineByLine("HackamonBasicRules.txt");
     }
 }

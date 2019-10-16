@@ -1,0 +1,70 @@
+Press ENTER to move on to the next dialogue.
+
+Hi NAME, welcome to Hackamon!
+
+Hackamon is an international hacking competition which attracts the best hackers
+in the world–of course, since you’re here, you must be really good! 
+
+You must be pretty excited so let’s get right into the rules:
+
+As a hacker, you will have a hacker level and a hacker class. Since you’re new
+you will start as a level 1 hacker, and you will be competing in the Baby class.
+
+There are 5 different classes:
+
+Baby (Levels 1-2)
+Novice (Levels 3-6)
+Leader (Levels 7-11)
+Elite (Levels 12-14)
+Champion (Level 15+)
+
+To level up you will need to accumulate a certain number of points.
+
+This varies between levels, and of course, the higher level you are the more
+points you need to level up.
+
+How do you get points you say?
+
+That’s simple, you just need to start hacking!
+
+At each hacka-match, your objective is to crack a code consisting of numbers.
+
+You will have a certain number of turns allowed to crack a code, and the length
+of code depends on both your hacker level and your chosen difficulty.
+
+At each of your turn, you will be allowed to guess what you think the code is.
+
+After your turn, you will then be notified how many digits from your guess is
+1) is the right digit and in the right position and
+2) how many is the right digit but in the wrong position.
+
+The hackamatch will end when you run out of turns or once you correctly hack the
+code. Depending on how well you solved the code, you will be given points, which
+you need to level up.
+
+These rules will be shown to you at the start of your first hackamatch.
+
+Also, I almost forgot! You can change the difficulty of every hackamatch.
+
+Since you’re in the Baby Class, you can only play on easy mode. But once you get
+to novice, you can then play easy, medium, hard and custom. At level 15, you
+will unlock the extreme difficulty option.
+
+Only by beating this extreme difficulty will you then be granted the “Champion”
+class.
+
+But be careful!
+
+Lose 5 hackamatches in a row and you will be automatically demoted 2 levels
+down.
+
+However, win 5 hackamatches in a row and you receive a huge points bonus!
+
+That’s all from me for now.
+
+If you need HELP at any time at all just write [HELP] on the prompt.
+To START hacking, write [START]. 
+Or if you want to SAVE, you may write [SAVE].
+If you want to exit Hackamon, you may write [EXIT].
+
+Good luck!

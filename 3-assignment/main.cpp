@@ -65,6 +65,48 @@ std::string getStringInput(std::string prompt,
     return userInput;
 }
 
+void displayTextLineByLine(std::string filename) {
+    /***************************************************************************
+     * Prints out contents of a file into the console line by line. The next
+     * line of text can be shown by pressing ENTER on the keyboard.
+     * 
+     * @param   filename    Name of the text file to be displayed.
+     * @precondition        The different lines should be delimited by an empty
+     *                      line. E.g. if the file given is as below
+     * 
+     *                      1  "Hello.
+     *                      2  I am Jasmine.
+     *                      3
+     *                      4  What is your name?""
+     * 
+     *                      Lines 1 and 2 will be shown in the terminal at the
+     *                      same time. The user will then have to press enter to
+     *                      see line 4.
+     **************************************************************************/
+    std::cout << std::endl;
+    std::fstream file;
+
+    file.open(filename);
+    // Print error message if about file is not found or empty.
+    if (file.peek() == std::ifstream::traits_type::eof()) {
+        std::cout << "Sorry, it seems like the file you're reading"
+            << std::endl << "either doesn't exist or is empty! :(" << std::endl;
+        return;
+    }
+
+    // Display message line by line. 
+    std::string textline;
+    while (std::getline(file, textline)) {
+        // Waits for user to press ENTER before displaying next line.
+        if (textline == "") {
+            std::cin.get();
+        } else {
+            std::cout << textline << std::endl;
+        }
+    }
+    file.close();
+}
+
 int main() {
     // Display the intro screen.
     displayTextFromFile("hackamonStartDisplay.txt");

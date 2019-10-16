@@ -1,5 +1,6 @@
 #include <string>
 #include "player.h"
+#include "main.h"
 
 Player::Player(std::string name) {
     playerName = name;

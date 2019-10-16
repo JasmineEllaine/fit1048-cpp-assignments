@@ -16,6 +16,10 @@ void displayTextFromFile(std::string filename);
 std::string getStringInput(std::string prompt, std::string errorMessage,
                           std::vector<std::string> choices);
 
+// @brief: Display text line by line.
+// @param: filename - Name of file.
+void displayTextLineByLine(std::string filename);
+
 // @brief: Application file.
 int main();
 
