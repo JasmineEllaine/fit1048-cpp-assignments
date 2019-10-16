@@ -8,10 +8,11 @@ Player::Player(std::string name) {
 Player::~Player() {
 }
 
-void Player::setPlayerName(std::string name) {
-    playerName = name;
-}
-
-std::string Player::getPlayerName() {
+std::string Player::getPlayerName() {\
+    /***************************************************************************
+     * Returns the player's name.
+     * 
+     * @return  playerName  The player's name.
+     **************************************************************************/
     return playerName;
 }

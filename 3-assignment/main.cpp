@@ -21,7 +21,7 @@ void displayTextFromFile(std::string filename) {
     // Print error message if about file is not found or empty.
     if (file.peek() == std::ifstream::traits_type::eof()) {
         std::cout << "Sorry, it seems like the file you're reading"
-            << std::endl << "either doesn't exist is is empty! :(" << std::endl;
+            << std::endl << "either doesn't exist or is empty! :(" << std::endl;
         return;
     }
 
@@ -34,8 +34,8 @@ void displayTextFromFile(std::string filename) {
 }
 
 std::string getStringInput(std::string prompt,
-                           std::string errorMessage = "Error, try again: ",
-                           std::vector<std::string> choices = {""}) {
+                           std::string errorMessage,
+                           std::vector<std::string> choices) {
     /***************************************************************************
      * Asks user for a string input, with the valid responses being the items in
      * choices.
@@ -45,6 +45,7 @@ std::string getStringInput(std::string prompt,
      *                          is invalid. Pass "" if not needed.
      * @param   choices         Possible responses by the user. Pass null if not
      *                          needed. 
+     * @return  userInput       Input selected by user from choices.
      **************************************************************************/
     std::cout << prompt;
     std::string userInput;

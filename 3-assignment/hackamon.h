@@ -5,19 +5,22 @@
 
 class Hackamon {
 public:
-	enum hackamonState {
-        IDLE,   // Player hub.
-		ACTIVE, // During a hackamatch.
-		HELP    // Help centre.
-	};
-    
+    // ATRRIBUTES
+    // hackamonState can either be
+    // "IDLE" - if in player hub.
+    // "ACTIVE" - if a hackamatch is ongoing.
+    // "HELP" - if in help centre.
+	std::string hackamonState;
+
+    // METHODS
 	Hackamon();
 	~Hackamon();
 
+    // @brief: Runs the whole game (Hackamon).
+    // @param: gaemStartType - Must either be NEW or LOAD.
 	void run(std::string gameStartType);
 
 private:
-	hackamonState state;
 };
 
 #endif

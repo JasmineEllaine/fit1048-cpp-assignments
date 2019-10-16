@@ -6,28 +6,32 @@
 #include "player.h"
 
 Hackamon::Hackamon() {
-    state = IDLE;
+    // Setup default hackamon state.
+    hackamonState = "IDLE";
 }
 
 Hackamon::~Hackamon() {
 }
 
 void Hackamon::run(std::string gameStartType) {
+    /***************************************************************************
+     * Either starts a new game or loads a currently saved game.
+     * 
+     * @param   gameStartType   Must be either "NEW" or "LOAD".
+     **************************************************************************/
     if (gameStartType == "LOAD"){ 
         // ADD CODE HERE FOR IF GAME IS LOADED
     } else {
-        // Starts a new game by setting state to IDLE.
-        state = IDLE;
         // Display intro and as for user's name.
         displayTextFromFile("hackamonIntro.txt");
 
-        // Create a new player and save their name.
-        // Player player = Player();
+        // Prompt the player for their name.
         std::string name = getStringInput(
             "\nBefore we get started, enter your name: ",
             "Error, try again: ", {""});
+        // Create a new player and save their name.
+        Player player = Player(name);
 
-        // player.setPlayerName(name);
-        // std::cout << player.getPlayerName() << std::endl;
+        std::cout << player.getPlayerName() << std::endl;
     }
 }
