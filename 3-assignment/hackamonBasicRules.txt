@@ -1,7 +1,3 @@
-Press ENTER to move on to the next dialogue.
-
-Hi NAME, welcome to Hackamon!
-
 Hackamon is an international hacking competition which attracts the best hackers
 in the world–of course, since you’re here, you must be really good! 
 
