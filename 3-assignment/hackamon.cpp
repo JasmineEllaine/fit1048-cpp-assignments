@@ -6,12 +6,38 @@
 #include "player.h"
 
 Hackamon::Hackamon() {
-    // Setup default hackamon state.
     hackamonState = "IDLE";
+    // Setup default hackamon state.
+    // hackamonState = ;
+    // commands = {"START, HELP, SAVE, EXIT"};
 }
 
 Hackamon::~Hackamon() {
 }
+
+std::vector<std::string> Hackamon::displayCommands() {
+    /***************************************************************************
+     * Displays commands available in the current game state, then returns the
+     * commands available for use.
+     * 
+     * @return  vector<string   Commands available in the current game state.
+     **************************************************************************/
+    if (hackamonState == "IDLE") {
+        displayTextFromFile("playerHubCommands.txt");
+        return {"START, HELP, SAVE, EXIT"};
+    } else if (hackamonState == "ACTIVE") {
+        displayTextFromFile("hackamatchCommands.txt");
+        return {"HINT", "HELP", "SAVE", "FORFEIT", "EXIT"};
+    } else if (hackamonState == "HELP") {
+        displayTextFromFile("helpCentreCommands.txt");
+        return {"1", "2", "3", "4", "5", "6"};
+    } else {
+        std::cout << "Error: Hackamon state not set." << std::endl;
+        return {"0"};
+    }
+}
+
+
 
 void Hackamon::run(std::string gameStartType) {
     /***************************************************************************
@@ -40,5 +66,8 @@ void Hackamon::run(std::string gameStartType) {
         std::cin.get();
 
         displayTextLineByLine("HackamonBasicRules.txt");
+        commands = displayCommands();
+        getStringInput("My choice: ", "Sorry, that's not a valid command",
+                       commands);
     }
 }

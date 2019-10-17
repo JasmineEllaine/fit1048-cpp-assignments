@@ -1,0 +1,7 @@
+Welcome to the Hackamon! hub. What do you do now?
+
+[START] - start a new hackamatch
+[HELP] - view information
+[SAVE] - save game
+[EXIT] - exit Hackamon!
+

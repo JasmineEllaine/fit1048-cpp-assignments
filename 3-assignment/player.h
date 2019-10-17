@@ -10,7 +10,9 @@ private:
 public:
 	Player(std::string name);
 	~Player();
-    void setPlayerName(std::string name);
+
+    // @brief: Returns the players name.
+    // @return: The player's name.
     std::string getPlayerName();
 };
 

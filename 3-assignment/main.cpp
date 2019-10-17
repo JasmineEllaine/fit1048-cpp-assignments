@@ -115,8 +115,10 @@ int main() {
     std::string invalidInputPrompt = "Invalid input. Please only write either \"NEW\" or \"LOAD\": ";
     std::string startGameType = getStringInput(prompt, invalidInputPrompt, choices);
 
-    Hackamon *hackamon;
-    hackamon->run(startGameType);
+    Hackamon game = Hackamon();
+    game.run(startGameType);
+    // Hackamon* hackamon;
+    // hackamon->run(startGameType);
 
     return 0;
 }
