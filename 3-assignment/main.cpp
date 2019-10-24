@@ -108,7 +108,7 @@ void displayTextLineByLine(std::string filename) {
 }
 
 int main() {
-    // Display the intro screen.
+    // Display the home screen.
     displayTextFromFile("hackamonStartDisplay.txt");
     std::vector<std::string> choices = {"NEW", "LOAD"};
     std::string prompt = "Write either [NEW] or [LOAD]: ";
@@ -117,8 +117,6 @@ int main() {
 
     Hackamon game = Hackamon();
     game.run(startGameType);
-    // Hackamon* hackamon;
-    // hackamon->run(startGameType);
 
     return 0;
 }

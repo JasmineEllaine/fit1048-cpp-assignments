@@ -15,25 +15,22 @@ Hackamon::Hackamon() {
 Hackamon::~Hackamon() {
 }
 
-std::vector<std::string> Hackamon::displayCommands() {
+void Hackamon::displayCommands() {
     /***************************************************************************
-     * Displays commands available in the current game state, then returns the
+     * Updates commands available in the current game state, then displays the
      * commands available for use.
-     * 
-     * @return  vector<string   Commands available in the current game state.
      **************************************************************************/
     if (hackamonState == "IDLE") {
+        commands = {"START" , "HELP", "SAVE", "EXIT"};
         displayTextFromFile("playerHubCommands.txt");
-        return {"START, HELP, SAVE, EXIT"};
     } else if (hackamonState == "ACTIVE") {
+        commands = {"HINT", "HELP", "SAVE", "FORFEIT", "EXIT"};
         displayTextFromFile("hackamatchCommands.txt");
-        return {"HINT", "HELP", "SAVE", "FORFEIT", "EXIT"};
     } else if (hackamonState == "HELP") {
+        commands = {"1", "2", "3", "4", "5", "6"};
         displayTextFromFile("helpCentreCommands.txt");
-        return {"1", "2", "3", "4", "5", "6"};
     } else {
         std::cout << "Error: Hackamon state not set." << std::endl;
-        return {"0"};
     }
 }
 
@@ -56,9 +53,6 @@ void Hackamon::runGameIntro() {
     std::cin.get();
 
     displayTextLineByLine("HackamonBasicRules.txt");
-    commands = displayCommands();
-    getStringInput("My choice: ", "Sorry, that's not a valid command",
-                    commands);
 }
 
 void Hackamon::run(std::string gameStartType) {
@@ -71,5 +65,12 @@ void Hackamon::run(std::string gameStartType) {
         // ADD CODE HERE FOR IF GAME IS LOADED
     } else {
         runGameIntro();
+        while (!exitGame) {
+            displayCommands();
+            playerCommandChoice = getStringInput("My choice: ",
+                            "Sorry, that's not a valid command. Try again: ",
+                            commands);
+            std::cout << playerCommandChoice;
+        }
     }
 }
