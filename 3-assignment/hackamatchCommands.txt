@@ -1,0 +1,9 @@
+These are the available commands:
+
+[BACK]    - go back to the game
+[HINT]    - reveal one digit of the secret code
+[HELP]    - view more information
+[SAVE]    - save game
+[FORFEIT] – quit your current match and return to hub
+[EXIT]    - exit Hackamon!
+

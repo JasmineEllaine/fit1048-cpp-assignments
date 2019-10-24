@@ -8,6 +8,9 @@
 // @param: filename - name of file.
 void displayTextFromFile(std::string filename);
 
+// @brief: Pauses program until ENTER is pressed.
+void pause();
+
 // @brief: Asks user for string input.
 // @param: prompt - input prompt.
 // @param: errorMessage - message if input is invalid.

@@ -33,6 +33,14 @@ void displayTextFromFile(std::string filename) {
     file.close();
 }
 
+void pause() {
+    /***************************************************************************
+     * Pauses the program until the user presses ENTER.
+     **************************************************************************/
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get();
+}
+
 std::string getStringInput(std::string prompt,
                            std::string errorMessage,
                            std::vector<std::string> choices) {

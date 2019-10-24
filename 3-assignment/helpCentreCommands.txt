@@ -1,0 +1,9 @@
+Welcome to HACKAMON! Help Centre.
+
+[1] View hackamatch rules.
+[2] View hackamatch difficulty information.
+[3] View classes and levelling up information.
+[4] View my player stats.
+[5] View commands list. 
+[6] Go back to hub/continue hackamatch.
+
