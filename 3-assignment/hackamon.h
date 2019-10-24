@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "player.h"
 
 class Hackamon {
 public:
@@ -15,6 +16,7 @@ public:
     // @param: gaemStartType - Must either be NEW or LOAD.
 	void run(std::string gameStartType);
     std::vector<std::string> displayCommands();
+    void runGameIntro();
 
 private:
     // ATRRIBUTES
@@ -23,8 +25,8 @@ private:
     // "ACTIVE" - if a hackamatch is ongoing.
     // "HELP" - if in help centre.
 	std::string hackamonState;
-    int testInt;
     std::vector<std::string> commands;
+    Player player = Player();
 };
 
 #endif

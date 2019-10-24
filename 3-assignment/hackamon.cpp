@@ -37,7 +37,29 @@ std::vector<std::string> Hackamon::displayCommands() {
     }
 }
 
+void Hackamon::runGameIntro() {
+    // Display intro and as for user's name.
+    displayTextFromFile("hackamonIntro.txt");
 
+    // Prompt the player for their name.
+    std::string name = getStringInput(
+        "\nBefore we get started, enter your name: ",
+        "Error, try again: ", {""});
+    // Create a new player and save their name.
+    player.setPlayerName(name);
+
+    // Give user a personalised intro to hackamon.
+    std::cout << std::endl << std::endl << "Hi there " << player.getPlayerName()
+        << ", welcome to Hackamon!" << std::endl << std::endl;
+    std::cin.get();
+    std::cout << "Press ENTER to move on to the next dialogue.";
+    std::cin.get();
+
+    displayTextLineByLine("HackamonBasicRules.txt");
+    commands = displayCommands();
+    getStringInput("My choice: ", "Sorry, that's not a valid command",
+                    commands);
+}
 
 void Hackamon::run(std::string gameStartType) {
     /***************************************************************************
@@ -48,26 +70,6 @@ void Hackamon::run(std::string gameStartType) {
     if (gameStartType == "LOAD"){ 
         // ADD CODE HERE FOR IF GAME IS LOADED
     } else {
-        // Display intro and as for user's name.
-        displayTextFromFile("hackamonIntro.txt");
-
-        // Prompt the player for their name.
-        std::string name = getStringInput(
-            "\nBefore we get started, enter your name: ",
-            "Error, try again: ", {""});
-        // Create a new player and save their name.
-        Player player = Player(name);
-
-        // Give user a personalised intro to hackamon.
-        std::cout << "Hi there " << player.getPlayerName() << ", welcome to Hackamon!"
-            << std::endl << std::endl;
-        std::cin.get();
-        std::cout << "Press ENTER to move on to the next dialogue.";
-        std::cin.get();
-
-        displayTextLineByLine("HackamonBasicRules.txt");
-        commands = displayCommands();
-        getStringInput("My choice: ", "Sorry, that's not a valid command",
-                       commands);
+        runGameIntro();
     }
 }

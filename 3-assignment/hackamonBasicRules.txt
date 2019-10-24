@@ -56,11 +56,11 @@ down.
 
 However, win 5 hackamatches in a row and you receive a huge points bonus!
 
-That’s all from me for now.
+That's all from me for now. Good luck!
 
-If you need HELP at any time at all just write [HELP] on the prompt.
-To START hacking, write [START]. 
-Or if you want to SAVE, you may write [SAVE].
-If you want to exit Hackamon, you may write [EXIT].
+********************************************
+YOU ARE NOW BEING TAKEN TO THE PLAYER HUB... 
+                    **
+         PRESS [ENTER] TO CONTINUE.
+********************************************
 
-Good luck!
