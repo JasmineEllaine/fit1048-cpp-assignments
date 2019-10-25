@@ -22,6 +22,7 @@ class Hackamatch {
         ~Hackamatch();
         void generatePasscode();
         void run();
+        void displayHackamatchIntro();
 };
 
 #endif

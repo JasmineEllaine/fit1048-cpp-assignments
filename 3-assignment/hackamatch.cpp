@@ -38,6 +38,13 @@ void Hackamatch::generatePasscode() {
     }
 };
 
+void Hackamatch::runHackamatchIntro() {
+
+}
+
 void Hackamatch::run() {
-    
+    runHackamatchIntro();
+    while (numberOfTurns > 0) {
+
+    }
 }

@@ -1,3 +1,83 @@
+GENERAL RULES:
+--------------
+In every hackamatch you will be allowed several guesses to hack the passcode.
+The number of guesses you are allowed to make will depend on the difficulty.
+The pascode can be made up of digits from 0-9. Not all of these digits may be
+used, and repetition is allowed. The length of the passcode, and the range of
+the digits they are chosen from will depend on the difficulty chosen. See below.
+
+
+                    |  EASY  |  MEDIUM  |  HARD  |  EXTREME   
+        -----------------------------------------------------
+        PASSCODE    |        |          |        |          
+        LENGTH      |   4    |    4     |   8    |    10
+        ------------|--------|----------|--------|-----------
+        DIGITS      |        |          |        |          
+        ALLOWED     |  0-3   |   0-7    |  0-9   |    0-9
+        IN CODE     |        |          |        |          
+        ------------|--------|----------|--------|-----------
+        NUMBER OF   |        |          |        |          
+        GUESSES     |   10   |    10    |   20   |    20
+                    |        |          |        |          
+
+
+EXAMPLE: In EASY difficulty, the passcode will be 4 digits in length, and can be
+made up of the digits 0, 1, 2, and 3. Not all the digits may be used, and
+repetition is allowed. A sample passcode could be "1200".
+
+
+DURING THE MATCH:
+-----------------
+During each turn, you need to input what you think the passcode is 
+WITHOUT SPACES then press enter. For example, “123456”.
+
+Once you press enter, you will then be given feedback on your guess:
+
+“–” means that you have guessed a correct digit but you did not place it in the
+    correct position.
+“=” means that you have guessed a correct digit and placed it in the correct
+    position.”
+
+You may receive several “–” and “=” or none at all, depending on how well you
+have guessed the code. 
+
+
+POINTS CALCULATION:
+-------------------
+At the end of every match, you will be rewarded with points depending on how
+well you did. At every match there is a base number of points which you can
+earn. This will vary depending on difficulty. You get 20 bonus points at the end
+of every match for every leftover turns which you did not use. You also lose 50
+points for every hint that you use.
+
+
+                |  EASY  |  MEDIUM  |  HARD  |  EXTREME   
+        -------------------------------------------------
+        BASE    |        |          |        |          
+        POINTS  |  200   |   300    |  500   |   1000
+                |        |          |        |          
+
+
+COMMANDS AVAILABLE:
+-------------------
+There are several commands which you can use throughout the duration of the
+match. 
+
+If you get stuck at any point in the game, you may type [HINT] to reveal one
+digit of the code. The number of hints you are allowed is 1 less than the length
+of the passcode.
+
+If you want to save your game, you may write [SAVE]. 
+
+If you want to forfeit from the current match, you may write [FORFEIT]. This
+results in an automatic loss with 0 points earned in your tally.
+
+If you want to exit Hackamon, you may write [EXIT].
+
+Finally, if you ever need to view Hackamon! rules again during the game, just
+write [HELP].
+
+
 ******************************************** 
          PRESS [ENTER] TO CONTINUE.
 ********************************************
