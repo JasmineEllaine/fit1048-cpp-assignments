@@ -4,12 +4,10 @@
 #include "hackamon.h"
 #include "main.h"
 #include "player.h"
+#include "hackamatch.h"
 
 Hackamon::Hackamon() {
     hackamonState = "IDLE";
-    // Setup default hackamon state.
-    // hackamonState = ;
-    // commands = {"START, HELP, SAVE, EXIT"};
 }
 
 Hackamon::~Hackamon() {
@@ -111,6 +109,10 @@ void Hackamon::runHackamatch() {
 
     std::string difficulty = getStringInput(prompt, error, choices);
 
+    // Start hackamatch.
+    previousState = hackamonState;
+    hackamonState = "ACTIVE";
+    hackamatch = new Hackamatch(difficulty);
 }
 
 void Hackamon::run(std::string gameStartType) {

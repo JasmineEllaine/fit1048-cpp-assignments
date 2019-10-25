@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "player.h"
+#include "hackamatch.h"
 
 class Hackamon {
 public:
@@ -35,14 +36,17 @@ private:
     // @brief: Stores the last state before the current one.
     std::string previousState;
 
-    // @brief: Available commands at the moment.
-    std::vector<std::string> commands;
+    // @brief: The current hackamatch.
+    Hackamatch *hackamatch;
+
     // @brief: Details of the player currently playing the game.
     Player player = Player();
-    // @brief: States whether to quit the game.
-    bool exitGame = false;
     // @brief: Player's current command choice. 
     std::string playerCommandChoice;
+    // @brief: Available commands at the moment.
+    std::vector<std::string> commands;
+    // @brief: States whether to quit the game.
+    bool exitGame = false;
 };
 
 #endif
