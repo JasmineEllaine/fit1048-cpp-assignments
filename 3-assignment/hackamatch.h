@@ -21,6 +21,7 @@ class Hackamatch {
         Hackamatch(std::string difficulty);
         ~Hackamatch();
         void generatePasscode();
+        void run();
 };
 
 #endif

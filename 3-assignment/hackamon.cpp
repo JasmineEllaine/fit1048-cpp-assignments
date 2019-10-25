@@ -113,6 +113,7 @@ void Hackamon::runHackamatch() {
     previousState = hackamonState;
     hackamonState = "ACTIVE";
     hackamatch = new Hackamatch(difficulty);
+    hackamatch->run();
 }
 
 void Hackamon::run(std::string gameStartType) {

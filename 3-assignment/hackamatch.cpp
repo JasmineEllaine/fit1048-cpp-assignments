@@ -37,3 +37,7 @@ void Hackamatch::generatePasscode() {
         passcode.push_back(std::to_string(curr));
     }
 };
+
+void Hackamatch::run() {
+    
+}
