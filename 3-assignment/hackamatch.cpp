@@ -55,9 +55,18 @@ void Hackamatch::runHackamatchIntro() {
     }
 }
 
+void Hackamatch::displayUI() {
+
+}
+
+void Hackamatch::playUserTurn() {
+    
+}
+
 void Hackamatch::run() {
     runHackamatchIntro();
     while (numberOfTurns > 0) {
-
+        displayUI();
+        playUserTurn();
     }
 }

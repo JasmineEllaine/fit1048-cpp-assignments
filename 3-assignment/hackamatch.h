@@ -17,6 +17,7 @@ class Hackamatch {
         int numberOfTurns;
         int maxHints;
         int hintsLeft;
+        std::vector<std::vector<std::string>> playerGuesses;
     
     public:
         Hackamatch(std::string difficulty, std::string name);
@@ -24,6 +25,8 @@ class Hackamatch {
         void generatePasscode();
         void run();
         void runHackamatchIntro();
+        void displayUI();
+        void playUserTurn();
 };
 
 #endif
