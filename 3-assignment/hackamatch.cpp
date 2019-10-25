@@ -1,9 +1,12 @@
 #include <string>
+#include <vector>
 #include <iostream>
 #include "hackamatch.h"
+#include "main.h"
 
-Hackamatch::Hackamatch(std::string difficulty) {
+Hackamatch::Hackamatch(std::string difficulty, std::string name) {
     hackamatchDifficulty = difficulty;
+    playerName = name;
     
     // Setup depending on game difficulty.
     if (difficulty == "EASY") {
@@ -39,7 +42,17 @@ void Hackamatch::generatePasscode() {
 };
 
 void Hackamatch::runHackamatchIntro() {
+    std::string prompt = "Do you want to view the rules before we begin?\n Input Y or N: ";
+    std::string error = "Only input either Y or N: ";
+    std::vector<std::string> choices = {"Y", "N"};
+    std::string viewRules = getStringInput(prompt, error, choices);
 
+    if (viewRules == "Y") {
+        displayTextFromFile("1-hackamatchRules.txt");
+        pause();
+    } else {
+        std::cout << std::endl << std::endl;
+    }
 }
 
 void Hackamatch::run() {

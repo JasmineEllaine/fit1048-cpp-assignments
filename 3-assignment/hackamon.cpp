@@ -112,7 +112,7 @@ void Hackamon::runHackamatch() {
     // Start hackamatch.
     previousState = hackamonState;
     hackamonState = "ACTIVE";
-    hackamatch = new Hackamatch(difficulty);
+    hackamatch = new Hackamatch(difficulty, player.getPlayerName());
     hackamatch->run();
 }
 

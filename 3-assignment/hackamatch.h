@@ -7,6 +7,7 @@
 class Hackamatch {
     private:
         std::string hackamatchDifficulty;
+        std::string playerName;
         std::vector<std::string> passcode;
         int codeLength;
         // @brief: Number of possible digits in passcode. E.g. if
@@ -18,11 +19,11 @@ class Hackamatch {
         int hintsLeft;
     
     public:
-        Hackamatch(std::string difficulty);
+        Hackamatch(std::string difficulty, std::string name);
         ~Hackamatch();
         void generatePasscode();
         void run();
-        void displayHackamatchIntro();
+        void runHackamatchIntro();
 };
 
 #endif
