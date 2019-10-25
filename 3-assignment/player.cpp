@@ -1,19 +1,19 @@
 #include <string>
 #include "player.h"
 
-Player::Player() {
-    Player_Classes playerClass = BABY;
-    int playerLevel = 1;
-    int playerTotalPoints = 0;
+Player::Player() 
+{
+    playerClass = BABY;
+    playerLevel = 1;
+    playerTotalPoints = 0;
     setPointsToLevelUp();
-    // @brief: Points the player currently hold (less than pointsToLevelUp)
-    int playerCurrentLevelPoints = 0;
+    playerCurrentLevelPoints = 0;
 
-    int totalWins = 0;
-    int totalLosses = 0;
-    int highestWinStreak = 0;
-    int currentWinStreak = 0;
-    int currentLossStreak = 0;
+    totalWins = 0;
+    totalLosses = 0;
+    highestWinStreak = 0;
+    currentWinStreak = 0;
+    currentLossStreak = 0;
 }
 
 Player::~Player() {
@@ -30,6 +30,10 @@ std::string Player::getPlayerName() {
      * @return  playerName  The player's name.
      **************************************************************************/
     return playerName;
+}
+
+int Player::getPlayerLevel() {
+    return playerLevel;
 }
 
 void Player::setPointsToLevelUp() {

@@ -92,6 +92,24 @@ void Hackamon::processPlayerChoice() {
 }
 
 void Hackamon::runHackamatch() {
+    // Select difficulty before creating class.
+    int playerLevel = player.getPlayerLevel();
+
+    std::string prompt;
+    std::string error = "That's not valid, select again: ";
+    std::vector<std::string> choices;
+    if (playerLevel < 3) {
+        choices = {"EASY"};
+        prompt = "Select a difficulty (EASY only): ";
+    } else if (playerLevel < 15) {
+        choices = {"EASY", "MEDIUM", "HARD"};
+        prompt = "Select a difficulty (EASY, MEDIUM, HARD): ";
+    } else {
+        choices = {"EASY", "MEDIUM", "HARD", "EXTREME"};
+        prompt = "Select a difficulty (EASY, MEDIUM, HARD, EXTREME): ";
+    }
+
+    std::string difficulty = getStringInput(prompt, error, choices);
 
 }
 
@@ -104,7 +122,7 @@ void Hackamon::run(std::string gameStartType) {
     if (gameStartType == "LOAD"){ 
         // ADD CODE HERE FOR IF GAME IS LOADED
     } else {
-        runGameIntro();
+        // runGameIntro();
         while (!exitGame) {
             displayCommands();
             playerCommandChoice = getStringInput("My choice: ",

@@ -42,6 +42,7 @@ public:
 
     // Getters.
     std::string getPlayerName();
+    int getPlayerLevel();
 
     // Setters.
     void setPlayerName(std::string name);
