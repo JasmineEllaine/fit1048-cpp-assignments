@@ -21,6 +21,8 @@ public:
     void displayCommands();
     // @brief: Takes the action that the player requested.
     void processPlayerChoice();
+    // @brief: Starts a new match.
+    void runHackamatch();
 
 private:
     // ATRRIBUTES

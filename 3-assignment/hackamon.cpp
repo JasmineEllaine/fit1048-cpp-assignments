@@ -15,6 +15,30 @@ Hackamon::Hackamon() {
 Hackamon::~Hackamon() {
 }
 
+void Hackamon::runGameIntro() {
+    /***************************************************************************
+     * Runs the player through the intro scenes and explains the rules.
+     **************************************************************************/
+    // Display intro and as for user's name.
+    displayTextFromFile("hackamonIntro.txt");
+
+    // Prompt the player for their name.
+    std::string name = getStringInput(
+        "\nBefore we get started, enter your name: ",
+        "Error, try again: ", {""});
+    // Create a new player and save their name.
+    player.setPlayerName(name);
+
+    // Give user a personalised intro to hackamon.
+    std::cout << std::endl << std::endl << "Press ENTER to move on to the next dialogue."
+        << std::endl << std::endl;
+    pause();
+    std::cout <<  "Hi there " << player.getPlayerName() << ", welcome to Hackamon!" ;
+    std::cin.get();
+
+    displayTextLineByLine("HackamonBasicRules.txt");
+}
+
 void Hackamon::displayCommands() {
     /***************************************************************************
      * Updates commands available in the current game state, then displays the
@@ -42,6 +66,7 @@ void Hackamon::processPlayerChoice() {
      *                  through validation checks.
      **************************************************************************/
     if (playerCommandChoice == "START") {
+        runHackamatch();
     } else if (playerCommandChoice == "SAVE") {
     } else if (playerCommandChoice == "HELP") {
         previousState = hackamonState;
@@ -66,28 +91,8 @@ void Hackamon::processPlayerChoice() {
     }
 }
 
-void Hackamon::runGameIntro() {
-    /***************************************************************************
-     * Runs the player through the intro scenes and explains the rules.
-     **************************************************************************/
-    // Display intro and as for user's name.
-    displayTextFromFile("hackamonIntro.txt");
+void Hackamon::runHackamatch() {
 
-    // Prompt the player for their name.
-    std::string name = getStringInput(
-        "\nBefore we get started, enter your name: ",
-        "Error, try again: ", {""});
-    // Create a new player and save their name.
-    player.setPlayerName(name);
-
-    // Give user a personalised intro to hackamon.
-    std::cout << std::endl << std::endl << "Press ENTER to move on to the next dialogue."
-        << std::endl << std::endl;
-    pause();
-    std::cout <<  "Hi there " << player.getPlayerName() << ", welcome to Hackamon!" ;
-    pause();
-
-    displayTextLineByLine("HackamonBasicRules.txt");
 }
 
 void Hackamon::run(std::string gameStartType) {
