@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "hackamatch.h"
 
 Hackamatch::Hackamatch(std::string difficulty) {
@@ -29,5 +30,10 @@ Hackamatch::Hackamatch(std::string difficulty) {
 }
 
 void Hackamatch::generatePasscode() {
-
+    int curr;
+    for (int i=0; i < codeLength; i++) {
+        // curr in the range 0 to numberOfOptions-1.
+        curr = rand() % numberOfOptions;
+        passcode.push_back(std::to_string(curr));
+    }
 };
