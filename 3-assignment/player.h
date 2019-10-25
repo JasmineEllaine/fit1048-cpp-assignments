@@ -29,6 +29,7 @@ private:
     // @brief: Points the player currently hold (less than pointsToLevelUp)
     int playerCurrentLevelPoints;
 
+    // Player data.
     int totalWins;
     int totalLosses;
     int highestWinStreak;
@@ -39,11 +40,12 @@ public:
 	Player();
 	~Player();
 
-    // @brief: Returns the players name.
-    // @return: The player's name.
+    // Getters.
     std::string getPlayerName();
-    // @brief: Sets the players name.
+
+    // Setters.
     void setPlayerName(std::string name);
+    void setPointsToLevelUp();
 };
 
 #endif
