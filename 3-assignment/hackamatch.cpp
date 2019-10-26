@@ -2,11 +2,13 @@
 #include <vector>
 #include <iostream>
 #include "hackamatch.h"
+#include "hackamon.h"
 #include "main.h"
 
-Hackamatch::Hackamatch(std::string difficulty, std::string name) {
+Hackamatch::Hackamatch(std::string difficulty, std::string name, Hackamon *game) {
     hackamatchDifficulty = difficulty;
     playerName = name;
+    game = game;
     
     // Setup depending on game difficulty.
     if (difficulty == "EASY") {
@@ -29,7 +31,6 @@ Hackamatch::Hackamatch(std::string difficulty, std::string name) {
     maxHints = codeLength - 1;
     hintsLeft = maxHints;
     turnsLeft = numberOfTurns;
-
     generatePasscode();
 
     // Initialise passcode to display on the UI to either "*" and " ".
@@ -58,6 +59,9 @@ Hackamatch::Hackamatch(std::string difficulty, std::string name) {
     }
 }
 
+Hackamatch::~Hackamatch() {
+}
+
 void Hackamatch::generatePasscode() {
     int curr;
     for (int i=0; i < codeLength; i++) {
@@ -68,7 +72,7 @@ void Hackamatch::generatePasscode() {
 };
 
 void Hackamatch::runHackamatchIntro() {
-    std::string prompt = "Do you want to view the rules before we begin?\n Input Y or N: ";
+    std::string prompt = "Do you want to view the rules before we begin?\nInput Y or N: ";
     std::string error = "Only input either Y or N: ";
     std::vector<std::string> choices = {"Y", "N"};
     std::string viewRules = getStringInput(prompt, error, choices);
@@ -145,14 +149,45 @@ void Hackamatch::displayUI() {
 }
 
 void Hackamatch::playUserTurn() {
+    std::string userChoice;
+    do {
+        // Ask user if they want to guess the code or enter a command.
+        std::cout << "\n\nDo you want to guess the passcode or enter a command (e.g. HINT)?"
+            << std::endl;
+        std::string prompt = "Write \"G\" for guess or \"C\" for command: ";
+        std::string error = "Error. Enter either \"G\" or \"C\" only: ";
+        std::vector<std::string> choices = {"G", "C"};
+        userChoice = getStringInput(prompt, error, choices);
 
+        if (userChoice == "C") {
+            game->displayCommands();
+            std::string choice = getStringInput("My choice: ",
+                            "Sorry, that's not a valid command. Try again: ",
+                            game->getCommands());
+            game->setPlayerCommandChoice(choice);
+            game->processPlayerChoice();
+        }
+    } while (userChoice != "G");
+
+    // Asks user for their guess.
+    std::cout << playerName << ":\> Your guess: ";
+    std::cin >> currPlayerGuess;
+    while (currPlayerGuess.length() != codeLength) {
+        std::cout << "error: guess has incorrect length - remember to input your guess without spaces" << std::endl
+            << ":\> Your guess: ";
+        std::cin >> currPlayerGuess;
+        std::cout << currPlayerGuess;
+    }
 }
+
+void Hackamatch::getTurnFeedback() {}
 
 void Hackamatch::run() {
     runHackamatchIntro();
     while (turnsLeft > 0) {
         displayUI();
         playUserTurn();
+        getTurnFeedback();
         turnsLeft--;
     }
 }

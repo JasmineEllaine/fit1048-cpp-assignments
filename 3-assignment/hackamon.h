@@ -25,6 +25,9 @@ public:
     // @brief: Starts a new match.
     void runHackamatch();
 
+    std::vector<std::string> getCommands();
+    void setPlayerCommandChoice(std::string);
+
 private:
     // ATRRIBUTES
 
@@ -37,7 +40,7 @@ private:
     std::string previousState;
 
     // @brief: The current hackamatch.
-    Hackamatch *hackamatch;
+    // Hackamatch *hackamatch;
 
     // @brief: Details of the player currently playing the game.
     Player player = Player();

@@ -3,9 +3,11 @@
 
 #include <string>
 #include <vector>
+class Hackamon;
 
 class Hackamatch {
     private:
+        Hackamon *game;
         std::string hackamatchDifficulty;
         std::string playerName;
         std::vector<std::string> passcode;
@@ -23,15 +25,17 @@ class Hackamatch {
         int hintsLeft;
         std::string **playerGuesses;
         std::string **feedback;
+        std::string currPlayerGuess = "";
     
     public:
-        Hackamatch(std::string difficulty, std::string name);
+        Hackamatch(std::string difficulty, std::string name, Hackamon *game);
         ~Hackamatch();
         void generatePasscode();
         void run();
         void runHackamatchIntro();
         void displayUI();
         void playUserTurn();
+        void getTurnFeedback();
 };
 
 #endif

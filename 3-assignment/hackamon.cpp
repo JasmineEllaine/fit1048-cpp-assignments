@@ -13,6 +13,16 @@ Hackamon::Hackamon() {
 Hackamon::~Hackamon() {
 }
 
+// Getters.
+std::vector<std::string> Hackamon::getCommands() {
+    return commands;
+}
+
+// Setters.
+void Hackamon::setPlayerCommandChoice(std::string choice) {
+    playerCommandChoice = choice;
+}
+
 void Hackamon::runGameIntro() {
     /***************************************************************************
      * Runs the player through the intro scenes and explains the rules.
@@ -112,8 +122,8 @@ void Hackamon::runHackamatch() {
     // Start hackamatch.
     previousState = hackamonState;
     hackamonState = "ACTIVE";
-    hackamatch = new Hackamatch(difficulty, player.getPlayerName());
-    hackamatch->run();
+    Hackamatch hackamatch = Hackamatch(difficulty, player.getPlayerName(), this);
+    hackamatch.run();
 }
 
 void Hackamon::run(std::string gameStartType) {
