@@ -5,10 +5,10 @@
 #include "hackamon.h"
 #include "main.h"
 
-Hackamatch::Hackamatch(std::string difficulty, std::string name, Hackamon *game) {
+Hackamatch::Hackamatch(std::string difficulty, std::string name, Hackamon *hackamon) {
     hackamatchDifficulty = difficulty;
     playerName = name;
-    game = game;
+    game = hackamon;
     
     // Setup depending on game difficulty.
     if (difficulty == "EASY") {
@@ -72,7 +72,7 @@ void Hackamatch::generatePasscode() {
 };
 
 void Hackamatch::runHackamatchIntro() {
-    std::string prompt = "Do you want to view the rules before we begin?\nInput Y or N: ";
+    std::string prompt = "\nDo you want to view the rules before we begin?\nInput Y or N: ";
     std::string error = "Only input either Y or N: ";
     std::vector<std::string> choices = {"Y", "N"};
     std::string viewRules = getStringInput(prompt, error, choices);
@@ -161,6 +161,7 @@ void Hackamatch::playUserTurn() {
 
         if (userChoice == "C") {
             game->displayCommands();
+            std::vector<std::string> commands = game->getCommands();
             std::string choice = getStringInput("My choice: ",
                             "Sorry, that's not a valid command. Try again: ",
                             game->getCommands());
@@ -170,11 +171,11 @@ void Hackamatch::playUserTurn() {
     } while (userChoice != "G");
 
     // Asks user for their guess.
-    std::cout << playerName << ":\> Your guess: ";
+    std::cout << playerName << "Your guess: ";
     std::cin >> currPlayerGuess;
     while (currPlayerGuess.length() != codeLength) {
-        std::cout << "error: guess has incorrect length - remember to input your guess without spaces" << std::endl
-            << ":\> Your guess: ";
+        std::cout << "Error: guess has incorrect length - remember to input your guess without spaces" << std::endl
+            << "Your guess: ";
         std::cin >> currPlayerGuess;
         std::cout << currPlayerGuess;
     }

@@ -26,7 +26,8 @@ public:
     void runHackamatch();
 
     std::vector<std::string> getCommands();
-    void setPlayerCommandChoice(std::string);
+    void setPlayerCommandChoice(std::string choice);
+    // void setHackamonState(std::string state);
 
 private:
     // ATRRIBUTES
