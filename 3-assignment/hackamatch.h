@@ -10,7 +10,7 @@ class Hackamatch {
         std::string playerName;
         std::vector<std::string> passcode;
         // Passcode on display bottom of the screen UI.
-        std::string passcodeDisplay;
+        std::string *passcodeDisplay;
         int codeLength;
         const int MAX_CODE_LENGTH = 10;
         // @brief: Number of possible digits in passcode. E.g. if
@@ -18,10 +18,11 @@ class Hackamatch {
         // (0, 1, 2, 3, 4), for a total of 5 digits.
         int numberOfOptions;
         int numberOfTurns;
+        int turnsLeft;
         int maxHints;
         int hintsLeft;
-        std::string playerGuesses;
-        std::string feedback;
+        std::string **playerGuesses;
+        std::string **feedback;
     
     public:
         Hackamatch(std::string difficulty, std::string name);

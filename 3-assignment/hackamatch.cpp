@@ -28,11 +28,12 @@ Hackamatch::Hackamatch(std::string difficulty, std::string name) {
     }
     maxHints = codeLength - 1;
     hintsLeft = maxHints;
+    turnsLeft = numberOfTurns;
 
     generatePasscode();
 
     // Initialise passcode to display on the UI to either "*" and " ".
-    passcodeDisplay[MAX_CODE_LENGTH];
+    passcodeDisplay = new std::string[MAX_CODE_LENGTH];
     for (int i = 0; i < MAX_CODE_LENGTH; i++) {
         if (i < codeLength) {
             passcodeDisplay[i] = "*";
@@ -43,9 +44,13 @@ Hackamatch::Hackamatch(std::string difficulty, std::string name) {
 
     // Initialise playerGuesses and feedback to 2D array with row=numberOfTurns
     // and column = MAX_CODE_LENGTH and all values equal to " ".
-    playerGuesses[numberOfTurns][MAX_CODE_LENGTH];
-    feedback[numberOfTurns][MAX_CODE_LENGTH];
+    // playerGuesses[numberOfTurns][MAX_CODE_LENGTH];
+    // feedback[numberOfTurns][MAX_CODE_LENGTH];
+    playerGuesses = new std::string*[numberOfTurns];
+    feedback = new std::string*[numberOfTurns];
     for (int i = 0; i < numberOfTurns; i++) {
+        playerGuesses[i] = new std::string[MAX_CODE_LENGTH];
+        feedback[i] = new std::string[MAX_CODE_LENGTH];
         for (int j = 0; j < MAX_CODE_LENGTH; j++) {
             playerGuesses[i][j] = " ";
             feedback[i][j] = " ";
@@ -83,8 +88,14 @@ void Hackamatch::displayUI() {
     // Display guesses and feedback.
     for (int i = 0; i < numberOfTurns; i++) {
         // Display each turn/row.
+        
         std::cout << "           |   |                                         |    |\n           |   |  "
-            << i+1 << " :  ";
+            << i+1;
+        if (i+1 < 10) {
+            std::cout << " :  ";
+        } else {
+            std::cout << ":  ";
+        }
         // Display player guesses.
         // It is assumed that playerGuesses has been initalised with place
         // holder guesses.
@@ -97,12 +108,12 @@ void Hackamatch::displayUI() {
         std::cout << "  ";
         // Display first half of feedback to user. Same assumptions as above.
         for (int j = 0; j < 5; j++) {
-            std::cout << playerGuesses[i][j] << " ";
+            std::cout << feedback[i][j] << " ";
         }
         std::cout << "  |    |\n           |   |                             ";
         // Display second half of feedback to user. Same assumptions as above.
         for (int j = 5; j < MAX_CODE_LENGTH; j++) {
-            std::cout << playerGuesses[i][j] << " ";
+            std::cout << feedback[i][j] << " ";
         }
         std::cout << "  |    |\n";
     }
@@ -129,6 +140,7 @@ void Hackamatch::displayUI() {
     }
 
     // Display rest of UI (keyboard).
+    std::cout << "         |    |";
     displayTextFromFile("uiBottom.txt");
 }
 
@@ -138,8 +150,9 @@ void Hackamatch::playUserTurn() {
 
 void Hackamatch::run() {
     runHackamatchIntro();
-    while (numberOfTurns > 0) {
+    while (turnsLeft > 0) {
         displayUI();
         playUserTurn();
+        turnsLeft--;
     }
 }
