@@ -80,9 +80,6 @@ void Hackamon::processPlayerChoice() {
         previousState = hackamonState;
         hackamonState = "HELP";
     } else if (playerCommandChoice == "EXIT") {
-    } else if (playerCommandChoice == "BACK") {
-    } else if (playerCommandChoice == "HINT") {
-    } else if (playerCommandChoice == "FORFEIT") {
     } else if (playerCommandChoice == "1") {
         displayTextFromFile("1-hackamatchRules.txt");
         pause();
@@ -95,7 +92,9 @@ void Hackamon::processPlayerChoice() {
     } else if (playerCommandChoice == "4") {
         // Display player stats.
     } else if (playerCommandChoice == "5") {
-        hackamonState = previousState;
+        std::string tmp = previousState;
+        previousState = hackamonState;
+        hackamonState = tmp;
     }
 }
 
@@ -124,6 +123,7 @@ void Hackamon::runHackamatch() {
     hackamonState = "ACTIVE";
     Hackamatch hackamatch = Hackamatch(difficulty, player.getPlayerName(), this);
     hackamatch.run();
+    hackamonState = "IDLE";
 }
 
 void Hackamon::run(std::string gameStartType) {
