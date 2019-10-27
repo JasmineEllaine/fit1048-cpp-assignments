@@ -27,7 +27,7 @@ class Hackamatch {
         std::vector<std::vector<std::string>> feedback = {};
         std::vector<int> currPlayerGuess = {};
 
-        int correctDigitAndPos;
+        std::string currentState = "ACTIVE";
     
     public:
         Hackamatch(std::string difficulty, std::string name, Hackamon *game);
@@ -39,6 +39,7 @@ class Hackamatch {
         void playUserTurn();
         void getTurnFeedback(std::vector<int> passcodeTemp);
         void displayHint();
+        void displayGameOverScreen();
 };
 
 #endif

@@ -188,13 +188,14 @@ void Hackamatch::playUserTurn() {
             if (choice == "HINT") {
                 if (hintsLeft <= 0) {
                     displayUI();
-                    std::cout << "\nSorry, you have used up all of your available hints." << std::endl;
+                    std::cout << "\nSorry, you have used up all of your avail sable hints." << std::endl;
                     continue;
                 }
                 displayHint();
                 continue;
             } else if (choice == "FORFEIT") {
-
+                currentState = "LOSE";
+                return;
             }
 
             game->processPlayerChoice();
@@ -220,7 +221,7 @@ void Hackamatch::playUserTurn() {
 void Hackamatch::getTurnFeedback(std::vector<int> passcodeTemp) {
     int turnNo = numberOfTurns - turnsLeft;
     // Counts the number of correct digits and positions.
-    correctDigitAndPos = 0;
+    int correctDigitAndPos = 0;
     // Counts correct digits only.
     int correctDigitOnly = 0;
 
@@ -264,16 +265,44 @@ void Hackamatch::getTurnFeedback(std::vector<int> passcodeTemp) {
 
     // Reset currPlayerGuess
     currPlayerGuess = {};
+
+    if (correctDigitAndPos == codeLength) {
+        currentState = "WIN";
+    }
+}
+
+void Hackamatch::displayGameOverScreen() {
+    displayTextFromFile("gameOverUITop.txt");
+    std::cout << "             |   |             |   ";
+    if (currentState == "WIN") {
+        std::cout << "YOU WIN ";
+    } else {
+        std::cout << "YOU LOSE";
+    }
+    std::cout << "  |             |    |\n             |   |             +-------------+             |    |\n             |   |                                         |    |\n             |   |   PASSCODE: ";
+    
+    // Replace '*' in passocdeDisplay to actual passcode.
+    for (int i = 0; i < codeLength; i++){ 
+        passcodeDisplay[i] = std::to_string(passcode[i]);
+    }
+    
+    for (int i = 0; i < MAX_CODE_LENGTH; i++){ 
+        std::cout << passcodeDisplay[i] << " ";
+    }
+    std::cout << "        |    |";
+    displayTextFromFile("gameOverUIBottom.txt");
 }
 
 void Hackamatch::run() {
     runHackamatchIntro();
-    while (turnsLeft > 0 || correctDigitAndPos == codeLength) {
+    while (currentState == "ACTIVE" && turnsLeft > 0) {
         displayUI();
         playUserTurn();
-        getTurnFeedback(passcode);
+        if (currentState == "ACTIVE") {
+            getTurnFeedback(passcode);
+        }
         turnsLeft--;
     }
 
-
+    displayGameOverScreen();
 }
