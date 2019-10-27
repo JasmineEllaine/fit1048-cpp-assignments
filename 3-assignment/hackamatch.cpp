@@ -146,6 +146,25 @@ void Hackamatch::displayUI() {
     displayTextFromFile("uiBottom.txt");
 }
 
+void Hackamatch::displayHint() {
+    std::string prompt = "\nWhich digit would you like to have revealed? Enter its position below.\n0 = 1st position, 1 = 2nd position etc.\n\nPosition: ";
+    int digitIndex = getIntInput(prompt, 0, codeLength-1);
+
+    bool alreadyDisplayed = false;
+    while (!alreadyDisplayed) {
+        if (passcodeDisplay[digitIndex] == "*") {
+            alreadyDisplayed = true;
+            passcodeDisplay[digitIndex] = std::to_string(passcode[digitIndex]);
+            hintsLeft--;
+            break;
+        }
+        std::cout << "That digit has already been revealed try again." << std::endl;
+        digitIndex = getIntInput(prompt, 0, codeLength-1);
+    }
+
+    displayUI();
+}
+
 void Hackamatch::playUserTurn() {
     std::string userChoice;
     do {
@@ -162,8 +181,22 @@ void Hackamatch::playUserTurn() {
             std::vector<std::string> commands = game->getCommands();
             std::string choice = getStringInput("My choice: ",
                             "Sorry, that's not a valid command. Try again: ",
-                            game->getCommands());
+                            game->getCommands());             
             game->setPlayerCommandChoice(choice);
+
+            // Process commands differently if hint/forfeit.
+            if (choice == "HINT") {
+                if (hintsLeft <= 0) {
+                    displayUI();
+                    std::cout << "\nSorry, you have used up all of your available hints." << std::endl;
+                    continue;
+                }
+                displayHint();
+                continue;
+            } else if (choice == "FORFEIT") {
+
+            }
+
             game->processPlayerChoice();
         }
     } while (userChoice != "G");
@@ -187,7 +220,7 @@ void Hackamatch::playUserTurn() {
 void Hackamatch::getTurnFeedback(std::vector<int> passcodeTemp) {
     int turnNo = numberOfTurns - turnsLeft;
     // Counts the number of correct digits and positions.
-    int correctDigitAndPos = 0;
+    correctDigitAndPos = 0;
     // Counts correct digits only.
     int correctDigitOnly = 0;
 
@@ -235,12 +268,12 @@ void Hackamatch::getTurnFeedback(std::vector<int> passcodeTemp) {
 
 void Hackamatch::run() {
     runHackamatchIntro();
-    while (turnsLeft > 0) {
-        std::cout << passcode[0] << passcode[1] << passcode[2] << passcode[3] << std::endl;
-        
+    while (turnsLeft > 0 || correctDigitAndPos == codeLength) {
         displayUI();
         playUserTurn();
         getTurnFeedback(passcode);
         turnsLeft--;
     }
+
+
 }
