@@ -128,6 +128,12 @@ void Hackamon::runHackamatch() {
     Hackamatch hackamatch = Hackamatch(difficulty, player.getPlayerName(), this);
     hackamatch.run();
     hackamonState = "IDLE";
+
+    // Going back to player hub after hackamatch is over.
+    std::cout << "\n\n                     ************************************\n"
+        << "                     Press ENTER to go back to player hub.\n"
+        << "                     ************************************\n";
+    pause();
 }
 
 void Hackamon::run(std::string gameStartType) {

@@ -32,7 +32,6 @@ private:
     // Player data.
     int totalWins;
     int totalLosses;
-    int highestWinStreak;
     int currentWinStreak;
     int currentLossStreak;
 

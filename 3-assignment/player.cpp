@@ -1,5 +1,6 @@
 #include <string>
 #include "player.h"
+#include "main.h"
 
 Player::Player() 
 {
@@ -11,7 +12,6 @@ Player::Player()
 
     totalWins = 0;
     totalLosses = 0;
-    highestWinStreak = 0;
     currentWinStreak = 0;
     currentLossStreak = 0;
 
@@ -90,7 +90,6 @@ void Player::updateWinLossStatistics(bool win) {
     if (win) {
         totalWins++;
         currentWinStreak++;
-        highestWinStreak = (currentWinStreak > highestWinStreak) ? currentWinStreak : highestWinStreak;
         currentLossStreak = 0;
     } else {
         totalLosses++;
@@ -99,7 +98,22 @@ void Player::updateWinLossStatistics(bool win) {
     }
 
     // Check if there is a 5 win/loss streak.
+    if (currentLossStreak >=5 && playerLevel > 1) {
+        levelDown();
+        currentLossStreak = 0;
+    }
 
+    if (currentWinStreak >= 5) {
+        std::string prompt =  "\n\nCongratulations, you're at a 5-game win streak. Do you want to be moved up a level?\nEnter Y or N: ";
+        std::string error = "Only input either Y or N: ";
+        std::vector<std::string> choices = {"Y", "N"};
+        std::string choice = getStringInput(prompt, error, choices);
+
+        if (choice == "Y") {
+            levelUp();
+            currentWinStreak = 0;
+        }
+    }
 }
 
 // Updates total points and levels up a person if needed.
