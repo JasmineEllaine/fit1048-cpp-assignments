@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "player.h"
 class Hackamon;
 
 class Hackamatch {
@@ -40,6 +41,7 @@ class Hackamatch {
         void getTurnFeedback(std::vector<int> passcodeTemp);
         void displayHint();
         void displayGameOverScreen();
+        void updatePlayerStats(Player *player);
 };
 
 #endif

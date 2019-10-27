@@ -35,6 +35,12 @@ private:
     int highestWinStreak;
     int currentWinStreak;
     int currentLossStreak;
+
+    int pointsEarnedLastMatch;
+    int highScore;
+
+    bool moveUpClass = false;
+
     
 public:
 	Player();
@@ -47,6 +53,16 @@ public:
     // Setters.
     void setPlayerName(std::string name);
     void setPointsToLevelUp();
+    void setPointsEarnedLastMatch(int pointsEarned);
+
+    void updateWinLossStatistics(bool win);
+    void updatePointsCounters();
+
+    void levelUp();
+    void levelDown();
+    void updateClass();
+
+    bool winExtremeDifficulty = false;
 };
 
 #endif

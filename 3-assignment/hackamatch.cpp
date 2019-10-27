@@ -4,6 +4,7 @@
 #include "hackamatch.h"
 #include "hackamon.h"
 #include "main.h"
+#include "player.h"
 
 Hackamatch::Hackamatch(std::string difficulty, std::string name, Hackamon *hackamon) {
     hackamatchDifficulty = difficulty;
@@ -293,6 +294,36 @@ void Hackamatch::displayGameOverScreen() {
     displayTextFromFile("gameOverUIBottom.txt");
 }
 
+void Hackamatch::updatePlayerStats(Player *player) {
+    int points = 0;
+    if (currentState == "WIN") {
+        // Calculate points earned.
+        // Add base points earned.
+        if (hackamatchDifficulty == "EASY") {
+            points += 200;
+        } else if (hackamatchDifficulty == "MEDIUM") {
+            points += 300;
+        } else if (hackamatchDifficulty == "HARD") {
+            points += 500;
+        } else if (hackamatchDifficulty == "EXTREME") {
+            points += 1000;
+            player->winExtremeDifficulty = true;
+        }
+
+        // Bonus points for turnsLeft.
+        points += (20*turnsLeft);
+
+        // Reduce points for hints.
+        points -= (50*(maxHints-hintsLeft));
+    }
+
+    player->setPointsEarnedLastMatch(points);
+    player->updatePointsCounters();
+
+    bool win = currentState == "WIN";
+    player->updateWinLossStatistics(win);
+}
+
 void Hackamatch::run() {
     runHackamatchIntro();
     while (currentState == "ACTIVE" && turnsLeft > 0) {
@@ -300,9 +331,13 @@ void Hackamatch::run() {
         playUserTurn();
         if (currentState == "ACTIVE") {
             getTurnFeedback(passcode);
+        } else {
+            continue;
         }
         turnsLeft--;
     }
 
     displayGameOverScreen();
+    pause();
+    updatePlayerStats(game->getPlayer());
 }

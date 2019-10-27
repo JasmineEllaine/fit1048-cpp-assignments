@@ -27,6 +27,7 @@ public:
 
     std::vector<std::string> getCommands();
     void setPlayerCommandChoice(std::string choice);
+    Player* getPlayer();
 
 private:
     // ATRRIBUTES

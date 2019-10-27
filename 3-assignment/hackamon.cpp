@@ -18,6 +18,10 @@ std::vector<std::string> Hackamon::getCommands() {
     return commands;
 }
 
+Player* Hackamon::getPlayer() {
+    return &player;
+}
+
 // Setters.
 void Hackamon::setPlayerCommandChoice(std::string choice) {
     playerCommandChoice = choice;
