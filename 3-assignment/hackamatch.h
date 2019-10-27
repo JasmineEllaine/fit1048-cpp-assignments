@@ -10,7 +10,7 @@ class Hackamatch {
         Hackamon *game;
         std::string hackamatchDifficulty;
         std::string playerName;
-        std::vector<std::string> passcode;
+        std::vector<int> passcode;
         // Passcode on display bottom of the screen UI.
         std::string *passcodeDisplay;
         int codeLength;
@@ -23,9 +23,9 @@ class Hackamatch {
         int turnsLeft;
         int maxHints;
         int hintsLeft;
-        std::string **playerGuesses;
-        std::string **feedback;
-        std::string currPlayerGuess = "";
+        std::vector<std::vector<std::string>> playerGuesses = {};
+        std::vector<std::vector<std::string>> feedback = {};
+        std::vector<int> currPlayerGuess = {};
     
     public:
         Hackamatch(std::string difficulty, std::string name, Hackamon *game);
@@ -35,7 +35,7 @@ class Hackamatch {
         void runHackamatchIntro();
         void displayUI();
         void playUserTurn();
-        void getTurnFeedback();
+        void getTurnFeedback(std::vector<int> passcodeTemp);
 };
 
 #endif

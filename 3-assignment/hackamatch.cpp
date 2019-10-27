@@ -43,19 +43,17 @@ Hackamatch::Hackamatch(std::string difficulty, std::string name, Hackamon *hacka
         }
     }
 
-    // Initialise playerGuesses and feedback to 2D array with row=numberOfTurns
+    // Initialise playerGuesses and feedback to 2D vector with row=numberOfTurns
     // and column = MAX_CODE_LENGTH and all values equal to " ".
     // playerGuesses[numberOfTurns][MAX_CODE_LENGTH];
-    // feedback[numberOfTurns][MAX_CODE_LENGTH];
-    playerGuesses = new std::string*[numberOfTurns];
-    feedback = new std::string*[numberOfTurns];
+    // // feedback[numberOfTurns][MAX_CODE_LENGTH];
     for (int i = 0; i < numberOfTurns; i++) {
-        playerGuesses[i] = new std::string[MAX_CODE_LENGTH];
-        feedback[i] = new std::string[MAX_CODE_LENGTH];
+        std::vector<std::string> row = {};
         for (int j = 0; j < MAX_CODE_LENGTH; j++) {
-            playerGuesses[i][j] = " ";
-            feedback[i][j] = " ";
+            row.push_back(" ");
         }
+        playerGuesses.push_back(row);
+        feedback.push_back(row);
     }
 }
 
@@ -67,7 +65,7 @@ void Hackamatch::generatePasscode() {
     for (int i=0; i < codeLength; i++) {
         // curr in the range 0 to numberOfOptions-1.
         curr = rand() % numberOfOptions;
-        passcode.push_back(std::to_string(curr));
+        passcode.push_back(curr);
     }
 };
 
@@ -171,24 +169,76 @@ void Hackamatch::playUserTurn() {
     } while (userChoice != "G");
 
     // Asks user for their guess.
-    std::cout << playerName << "Your guess: ";
-    std::cin >> currPlayerGuess;
-    while (currPlayerGuess.length() != codeLength) {
-        std::cout << "Error: guess has incorrect length - remember to input your guess without spaces" << std::endl
-            << "Your guess: ";
-        std::cin >> currPlayerGuess;
-        std::cout << currPlayerGuess;
+    std::cout << "\n\nEnter your guesses one digit at a time by entering your guess, then pressing enter." << std::endl;
+    int count = 0;
+    int guess;
+    do {
+        std::string prompt = "Digit #" + std::to_string(count+1) + ": ";
+        guess = getIntInput(prompt, 0, numberOfOptions-1);
+        currPlayerGuess.push_back(guess);
+        count++;
     }
+    // I only check the length of the player guess because the feedback will
+    // deal with any invalid characters as simply a wrong guess.
+    while (currPlayerGuess.size() != codeLength);
 }
 
-void Hackamatch::getTurnFeedback() {}
+// Updates playerGuesses and feedback.
+void Hackamatch::getTurnFeedback(std::vector<int> passcodeTemp) {
+    int turnNo = numberOfTurns - turnsLeft;
+    // Counts the number of correct digits and positions.
+    int correctDigitAndPos = 0;
+    // Counts correct digits only.
+    int correctDigitOnly = 0;
+
+    // Iterate through every character of currPlayerGuess to check for digits
+    // that are in the correct position.
+    for (int i = 0; i < codeLength; i++) {
+        // Updates playerGuess vector.
+        playerGuesses[turnNo][i] = std::to_string(currPlayerGuess[i]);
+        	
+        // Check if correct position and digit.
+        if (passcodeTemp[i] == currPlayerGuess[i]) {
+            correctDigitAndPos++;
+            passcodeTemp[i] = -1;
+            currPlayerGuess[i] = 10;
+        }
+    }
+
+    for (int i = 0; i < codeLength; i++) {
+        // Find currPlayerGuess[i] in passcode.
+        std::vector<int>::iterator it = std::find(passcodeTemp.begin(), passcodeTemp.end(), currPlayerGuess[i]);
+        	
+        // Check if correct position and digit.
+        if (it != passcodeTemp.end()) {
+            correctDigitOnly++;
+            int index = std::distance(passcodeTemp.begin(), it);
+            currPlayerGuess[i] = 10;
+            passcodeTemp[index] = -1;
+        }
+    }
+
+    // Update feedback vector.
+    int i = 0;
+    while (i < correctDigitOnly) {
+        feedback[turnNo][i++] = '-';
+    }
+    while (i < correctDigitAndPos) {
+        feedback[turnNo][i++] = '=';
+    }
+
+    // Reset currPlayerGuess
+    currPlayerGuess = {};
+}
 
 void Hackamatch::run() {
     runHackamatchIntro();
     while (turnsLeft > 0) {
+        std::cout << passcode[0] << passcode[1] << passcode[2] << passcode[3] << std::endl;
+        
         displayUI();
         playUserTurn();
-        getTurnFeedback();
+        getTurnFeedback(passcode);
         turnsLeft--;
     }
 }

@@ -115,7 +115,34 @@ void displayTextLineByLine(std::string filename) {
     file.close();
 }
 
+int getIntInput(std::string prompt, int lo, int hi) {
+    /***************************************************************************
+     * Asks user for valid integer input.
+     * 
+     * @param   prompt  Prompt to be displayed to the user. Displayed as is.
+     * @param   lo      Lowest integer user can input.
+     * @param   hi      Highest integer user can input.
+     * @return  input   User's input.
+     **************************************************************************/
+    std::cout << prompt;
+
+	// Initialise user input to be lower than allowed range.
+	int input = lo - 1;
+	std::cin >> input;
+	// Keep asking for input until it is within range specified.
+	while (input < lo || input > hi || std::cin.fail()) {
+		std::cout << "Error: Input only integers from " << lo << "-"
+            << hi << ": ";
+		std::cin.clear();
+		std::cin.ignore(256, '\n');
+		std::cin >> input;
+	}
+	return input;
+}
+
 int main() {
+    // srand(time(0));
+
     // Display the home screen.
     displayTextFromFile("hackamonStartDisplay.txt");
     std::vector<std::string> choices = {"NEW", "LOAD"};

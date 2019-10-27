@@ -22,9 +22,6 @@ std::vector<std::string> Hackamon::getCommands() {
 void Hackamon::setPlayerCommandChoice(std::string choice) {
     playerCommandChoice = choice;
 }
-// void Hackamon::setHackamonState (std::string state) {
-//     hackamonState = state;
-// }
 
 void Hackamon::runGameIntro() {
     /***************************************************************************

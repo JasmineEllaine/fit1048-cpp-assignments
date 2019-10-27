@@ -27,7 +27,6 @@ public:
 
     std::vector<std::string> getCommands();
     void setPlayerCommandChoice(std::string choice);
-    // void setHackamonState(std::string state);
 
 private:
     // ATRRIBUTES
@@ -39,9 +38,6 @@ private:
 	std::string hackamonState;
     // @brief: Stores the last state before the current one.
     std::string previousState;
-
-    // @brief: The current hackamatch.
-    // Hackamatch *hackamatch;
 
     // @brief: Details of the player currently playing the game.
     Player player = Player();

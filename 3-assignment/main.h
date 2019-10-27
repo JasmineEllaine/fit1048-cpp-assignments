@@ -19,6 +19,8 @@ void pause();
 std::string getStringInput(std::string prompt, std::string errorMessage,
                           std::vector<std::string> choices);
 
+int getIntInput(std::string prompt, int lo, int hi);
+
 // @brief: Display text line by line.
 // @param: filename - Name of file.
 void displayTextLineByLine(std::string filename);
