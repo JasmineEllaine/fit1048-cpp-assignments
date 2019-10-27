@@ -42,6 +42,7 @@ class Hackamatch {
         void displayHint();
         void displayGameOverScreen();
         void updatePlayerStats(Player *player);
+        void displayResults(int base, int bonus, int penalty, int total, int playerLevel, std::string playerClass, int pointsToLevelUp);
 };
 
 #endif

@@ -294,34 +294,49 @@ void Hackamatch::displayGameOverScreen() {
     displayTextFromFile("gameOverUIBottom.txt");
 }
 
+void Hackamatch::displayResults(int base, int bonus, int penalty, int total, int playerLevel, std::string playerClass, int pointsToLevelUp) {
+    std::cout << "\n\n                     ************************************\n\n                                 GAME RESULTS\n\n                     BASE POINTS: "
+        << base << "\n                     TURNS LEFT BONUS: " << bonus << "\n                     HINT PENALTY: "
+        << penalty << "\n\n                     TOTAL POINTS: " << total << "\n\n                     ************************************\n\n                                 PLAYER STATS\n\n                     LEVEL: "
+        << playerLevel << "\n                     CLASS: " << playerClass << "\n\n                     POINTS UNTIL NEXT LEVEL: "
+        << pointsToLevelUp << std::endl << std::endl;//"\n\n                     ************************************\n                           Press ENTER to continue.\n                     ************************************\n\n";
+}
+
 void Hackamatch::updatePlayerStats(Player *player) {
     int points = 0;
+    int base = 0;
+    int bonus = 0;
+    int penalty = 0;
     if (currentState == "WIN") {
-        // Calculate points earned.
         // Add base points earned.
         if (hackamatchDifficulty == "EASY") {
-            points += 200;
+            base = 200;
         } else if (hackamatchDifficulty == "MEDIUM") {
-            points += 300;
+            base = 300;
         } else if (hackamatchDifficulty == "HARD") {
-            points += 500;
+            base = 500;
         } else if (hackamatchDifficulty == "EXTREME") {
-            points += 1000;
+            base = 1000;
             player->winExtremeDifficulty = true;
         }
 
         // Bonus points for turnsLeft.
-        points += (20*turnsLeft);
+        bonus = (20*turnsLeft);
 
         // Reduce points for hints.
-        points -= (50*(maxHints-hintsLeft));
+        penalty = (50*(maxHints-hintsLeft));
+
+        // Calculate points earned.
+        points = base + bonus - penalty;
     }
 
     player->setPointsEarnedLastMatch(points);
     player->updatePointsCounters();
 
-    bool win = currentState == "WIN";
+    bool win = (currentState == "WIN") ? true : false;
     player->updateWinLossStatistics(win);
+
+    displayResults(base, bonus, penalty, points, player->getPlayerLevel(), player->getPlayerClass(), player->getPointsToLevelUp());
 }
 
 void Hackamatch::run() {
@@ -338,6 +353,9 @@ void Hackamatch::run() {
     }
 
     displayGameOverScreen();
+    std::cout << "\n\n                     ************************************\n"
+        << "                           Press ENTER to continue.\n"
+        << "                     ************************************\n";
     pause();
     updatePlayerStats(game->getPlayer());
 }

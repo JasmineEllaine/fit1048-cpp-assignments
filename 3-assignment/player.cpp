@@ -66,12 +66,31 @@ int Player::getPlayerLevel() {
     return playerLevel;
 }
 
+std::string Player::getPlayerClass() {
+    if (playerClass == BABY) {
+        return "BABY";
+    } else if (playerClass == NOVICE) {
+        return "NOVICE";
+    } else if (playerClass == LEADER) {
+        return "LEADER";
+    } else if (playerClass == ELITE) {
+        return "ELITE";
+    } else if (playerClass == CHAMPION) {
+        return "CHAMPION";
+    } else {
+        return "ERROR";
+    }
+}
+
+int Player:: getPointsToLevelUp() {
+    return pointsToLevelUp;
+}
 
 void Player::updateWinLossStatistics(bool win) {
     if (win) {
         totalWins++;
         currentWinStreak++;
-        highestWinStreak = currentWinStreak > highestWinStreak ? currentWinStreak : highestWinStreak;
+        highestWinStreak = (currentWinStreak > highestWinStreak) ? currentWinStreak : highestWinStreak;
         currentLossStreak = 0;
     } else {
         totalLosses++;
@@ -90,9 +109,12 @@ void Player::updatePointsCounters() {
     while (pointsToAdd != 0) {
         if (pointsToAdd > pointsToLevelUp) {
             int difference = pointsToAdd - pointsToLevelUp;
+            pointsToAdd = difference;
             levelUp();
         } else {
             int difference = pointsToLevelUp- pointsToAdd;
+            pointsToLevelUp = difference;
+            pointsToAdd = 0;
         }
     }
 }

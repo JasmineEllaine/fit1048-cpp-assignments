@@ -49,6 +49,8 @@ public:
     // Getters.
     std::string getPlayerName();
     int getPlayerLevel();
+    std::string getPlayerClass();
+    int getPointsToLevelUp();
 
     // Setters.
     void setPlayerName(std::string name);
