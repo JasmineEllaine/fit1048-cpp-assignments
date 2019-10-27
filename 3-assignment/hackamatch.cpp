@@ -223,8 +223,10 @@ void Hackamatch::getTurnFeedback(std::vector<int> passcodeTemp) {
     while (i < correctDigitOnly) {
         feedback[turnNo][i++] = '-';
     }
-    while (i < correctDigitAndPos) {
+    int j = 0;
+    while (j < correctDigitAndPos) {
         feedback[turnNo][i++] = '=';
+        j++;
     }
 
     // Reset currPlayerGuess
