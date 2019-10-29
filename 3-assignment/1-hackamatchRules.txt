@@ -24,18 +24,19 @@ the digits they are chosen from will depend on the difficulty chosen. See below.
         GUESSES     |   10   |    10    |   20   |    20
                     |        |          |        |          
 
-
 EXAMPLE: In EASY difficulty, the passcode will be 4 digits in length, and can be
 made up of the digits 0, 1, 2, and 3. Not all the digits may be used, and
-repetition is allowed. A sample passcode could be "1200".
+repetition is allowed. A sample passcode could be "1-2-0-0".
 
 
 DURING THE MATCH:
 -----------------
-During each turn, you need to input what you think the passcode is 
-WITHOUT SPACES then press enter. For example, “123456”.
+During each turn, you need to input what you think the passcode is ONE AT A TIME
+by inputting the first number, then pressing enter, then inputting the second
+number, then pressing enter again, and so on. You will be prompted again if you
+input an invalid digit.
 
-Once you press enter, you will then be given feedback on your guess:
+Once you input your guess, you will then be given feedback on your guess:
 
 “–” means that you have guessed a correct digit but you did not place it in the
     correct position.
