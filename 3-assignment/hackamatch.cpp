@@ -188,8 +188,7 @@ void Hackamatch::playUserTurn() {
             // Process commands differently if hint/forfeit.
             if (choice == "HINT") {
                 if (hintsLeft <= 0) {
-                    displayUI();
-                    std::cout << "\nSorry, you have used up all of your avail sable hints." << std::endl;
+                    std::cout << "\nSorry, you have used up all of your available hints." << std::endl;
                     continue;
                 }
                 displayHint();

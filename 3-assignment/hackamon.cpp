@@ -83,6 +83,17 @@ void Hackamon::processPlayerChoice() {
     } else if (playerCommandChoice == "HELP") {
         previousState = hackamonState;
         hackamonState = "HELP";
+        std::cout << "Hackamon state 1: " << hackamonState << std::endl;
+        if (previousState == "ACTIVE") {
+            std::cout << "Hackamon state 2: " << hackamonState << std::endl;
+            while (hackamonState != "ACTIVE") {
+                displayCommands();
+                playerCommandChoice = getStringInput("My choice: ",
+                                "Sorry, that's not a valid command. Try again: ",
+                                commands);
+                processPlayerChoice();
+            }
+        }
     } else if (playerCommandChoice == "EXIT") {
         exitGame = true;
         displayTextFromFile("exitUI.txt");
@@ -98,6 +109,8 @@ void Hackamon::processPlayerChoice() {
         pause();
     } else if (playerCommandChoice == "4") {
         // Display player stats.
+        player.displayStats();
+        pause();
     } else if (playerCommandChoice == "5") {
         std::string tmp = previousState;
         previousState = hackamonState;

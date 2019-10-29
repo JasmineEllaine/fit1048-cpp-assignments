@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "player.h"
 #include "main.h"
 
@@ -16,7 +17,6 @@ Player::Player()
     currentLossStreak = 0;
 
     pointsEarnedLastMatch = 0;
-    highScore = 0;
 }
 
 Player::~Player() {
@@ -49,7 +49,6 @@ void Player::setPointsToLevelUp() {
 
 void Player::setPointsEarnedLastMatch(int pointsEarned) {
     pointsEarnedLastMatch = pointsEarned;
-    highScore = pointsEarnedLastMatch > highScore ? pointsEarnedLastMatch : highScore;
 }
 
 // GETTERS.
@@ -150,11 +149,21 @@ void Player::updateClass() {
         playerClass = CHAMPION;
     } else if (playerLevel >11) {
         playerClass = ELITE;
-    } else if (playerLevel < 6) {
+    } else if (playerLevel > 6) {
         playerClass = LEADER;
-    } else if (playerLevel < 2) {
+    } else if (playerLevel > 2) {
         playerClass = NOVICE;
-    } else if (playerLevel < 0) {
+    } else if (playerLevel > 0) {
         playerClass = BABY;
     }
+}
+
+void Player::displayStats() {
+    std::cout << "                     ************************************\n\n                                 PLAYER STATS\n\n                     LEVEL: "
+        << playerLevel << "\n                     CLASS: " << getPlayerClass() << "\n\n                     TOTAL POINTS: "
+        << playerTotalPoints << "\n                     POINTS UNTIL NEXT LEVEL: "
+        << pointsToLevelUp << "\n\n                     TOTAL WINS: "
+        << totalWins << "\n                     TOAL LOSSES: " << totalLosses
+        << "\n                     TOTAL GAMES PLAYED: "
+        << totalLosses+totalWins << "\n\n                     ************************************\n                     Press ENTER to go back to player hub.\n                     ************************************" << std::endl << std::endl;
 }

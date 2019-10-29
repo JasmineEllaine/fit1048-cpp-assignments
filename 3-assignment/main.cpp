@@ -141,7 +141,7 @@ int getIntInput(std::string prompt, int lo, int hi) {
 }
 
 int main() {
-    // srand(time(0));
+    srand(time(0));
 
     // Display the home screen.
     displayTextFromFile("hackamonStartDisplay.txt");

@@ -36,7 +36,6 @@ private:
     int currentLossStreak;
 
     int pointsEarnedLastMatch;
-    int highScore;
 
     bool moveUpClass = false;
 
@@ -62,6 +61,8 @@ public:
     void levelUp();
     void levelDown();
     void updateClass();
+
+    void displayStats();
 
     bool winExtremeDifficulty = false;
 };

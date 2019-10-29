@@ -1,3 +1,7 @@
+                        +---------------------+
+                        |  HACKAMATCH! RULES  |
+                        +---------------------+
+
 GENERAL RULES:
 --------------
 In every hackamatch you will be allowed several guesses to hack the passcode.
