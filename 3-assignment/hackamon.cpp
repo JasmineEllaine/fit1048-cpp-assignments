@@ -1,10 +1,15 @@
+/*
+ * This file is part of 2019 SEM 2 FIT1048 Assignment 3.
+ * Created October 2019 by Jasmine Banares, Student ID: 2973 8660.
+ */
+
 #include <string>
 #include <iostream>
 #include <vector>
+#include "hackamatch.h"
 #include "hackamon.h"
 #include "main.h"
 #include "player.h"
-#include "hackamatch.h"
 
 Hackamon::Hackamon() {
     hackamonState = "IDLE";
@@ -15,15 +20,30 @@ Hackamon::~Hackamon() {
 
 // Getters.
 std::vector<std::string> Hackamon::getCommands() {
+    /***************************************************************************
+     * Returns commands available to player in current state.
+     * 
+     * @return  commands    Commands available to the player in current state.
+     **************************************************************************/
     return commands;
 }
 
 Player* Hackamon::getPlayer() {
+    /***************************************************************************
+     * Returns address where player is stored.
+     * 
+     * @return  Address of player object.
+     **************************************************************************/
     return &player;
 }
 
 // Setters.
 void Hackamon::setPlayerCommandChoice(std::string choice) {
+    /***************************************************************************
+     * Sets the command player wants to execute.
+     * 
+     * @param   choice  Command that the player wants to execute.
+     **************************************************************************/
     playerCommandChoice = choice;
 }
 
@@ -31,10 +51,9 @@ void Hackamon::runGameIntro() {
     /***************************************************************************
      * Runs the player through the intro scenes and explains the rules.
      **************************************************************************/
-    // Display intro and as for user's name.
     displayTextFromFile("hackamonIntro.txt");
 
-    // Prompt the player for their name.
+    // Prompt the player for their name and save into player object.
     std::string name = getStringInput(
         "\nBefore we get started, enter your name: ",
         "Error, try again: ", {""});
@@ -83,9 +102,8 @@ void Hackamon::processPlayerChoice() {
     } else if (playerCommandChoice == "HELP") {
         previousState = hackamonState;
         hackamonState = "HELP";
-        std::cout << "Hackamon state 1: " << hackamonState << std::endl;
         if (previousState == "ACTIVE") {
-            std::cout << "Hackamon state 2: " << hackamonState << std::endl;
+            // Invokes help centre commands until user selects "back" option (5)
             while (hackamonState != "ACTIVE") {
                 displayCommands();
                 playerCommandChoice = getStringInput("My choice: ",
@@ -119,7 +137,10 @@ void Hackamon::processPlayerChoice() {
 }
 
 void Hackamon::runHackamatch() {
-    // Select difficulty before creating class.
+    /***************************************************************************
+     * Runs a new match for the player.
+     **************************************************************************/
+    // Select difficulty before starting match.
     int playerLevel = player.getPlayerLevel();
 
     std::string prompt;
@@ -160,8 +181,9 @@ void Hackamon::run(std::string gameStartType) {
      **************************************************************************/
     if (gameStartType == "LOAD"){ 
         // ADD CODE HERE FOR IF GAME IS LOADED
+        std::cout << "Sorry, I didn't manage to do the save/load feature as I ran out of time. :(";
     } else {
-        // runGameIntro();
+        runGameIntro();
         while (!exitGame) {
             displayCommands();
             playerCommandChoice = getStringInput("My choice: ",

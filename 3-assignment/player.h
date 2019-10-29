@@ -1,3 +1,8 @@
+/*
+ * This file is part of 2019 SEM 2 FIT1048 Assignment 3.
+ * Created October 2019 by Jasmine Banares, Student ID: 2973 8660.
+ */
+
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -28,17 +33,14 @@ private:
     int pointsToLevelUp;
     // @brief: Points the player currently hold (less than pointsToLevelUp)
     int playerCurrentLevelPoints;
-
-    // Player data.
-    int totalWins;
-    int totalLosses;
-    int currentWinStreak;
-    int currentLossStreak;
-
+    // @brief: Points the player earned in their last game.
     int pointsEarnedLastMatch;
 
-    bool moveUpClass = false;
-
+    int totalWins;
+    int totalLosses;
+    // @brief: currentWinStreak and currentLossStreak resets every 5 wins/losses.
+    int currentWinStreak;
+    int currentLossStreak;
     
 public:
 	Player();
@@ -64,6 +66,7 @@ public:
 
     void displayStats();
 
+    // @brief: Determines if player can move up to champion class,
     bool winExtremeDifficulty = false;
 };
 

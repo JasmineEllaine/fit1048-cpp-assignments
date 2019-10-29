@@ -1,12 +1,22 @@
+/*
+ * This file is part of 2019 SEM 2 FIT1048 Assignment 3.
+ * Created October 2019 by Jasmine Banares, Student ID: 2973 8660.
+ */
+
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
 #include "hackamatch.h"
 #include "hackamon.h"
 #include "main.h"
 #include "player.h"
 
 Hackamatch::Hackamatch(std::string difficulty, std::string name, Hackamon *hackamon) {
+    /***************************************************************************
+     * @param   difficulty  Chosen difficulty of the player.
+     * @param   name        Player's name.
+     * @param   hackamon    The current active hackamon.
+     **************************************************************************/
     hackamatchDifficulty = difficulty;
     playerName = name;
     game = hackamon;
@@ -34,7 +44,10 @@ Hackamatch::Hackamatch(std::string difficulty, std::string name, Hackamon *hacka
     turnsLeft = numberOfTurns;
     generatePasscode();
 
-    // Initialise passcode to display on the UI to either "*" and " ".
+    // Initialise passcode to display on the UI to either "*" or " ".
+    // IF the length of the passcode generated is only four, then the first four
+    // elements of passcodeDisplay will be "*", and the rest are " ". This will
+    // be used to make displaying the UI later easier.
     passcodeDisplay = new std::string[MAX_CODE_LENGTH];
     for (int i = 0; i < MAX_CODE_LENGTH; i++) {
         if (i < codeLength) {
@@ -59,9 +72,14 @@ Hackamatch::Hackamatch(std::string difficulty, std::string name, Hackamon *hacka
 }
 
 Hackamatch::~Hackamatch() {
+    delete passcodeDisplay;
 }
 
 void Hackamatch::generatePasscode() {
+    /***************************************************************************
+     * Generates the required passcode and stores it into passcode.
+     * passcode.size() = codeLength
+     **************************************************************************/
     int curr;
     for (int i=0; i < codeLength; i++) {
         // curr in the range 0 to numberOfOptions-1.
@@ -71,6 +89,10 @@ void Hackamatch::generatePasscode() {
 };
 
 void Hackamatch::runHackamatchIntro() {
+    /***************************************************************************
+     * Runs player through intro scene of a hackamatch. This is where the rules
+     * are displayed if needed by the player.
+     **************************************************************************/
     std::string prompt = "\nDo you want to view the rules before we begin?\nInput Y or N: ";
     std::string error = "Only input either Y or N: ";
     std::vector<std::string> choices = {"Y", "N"};
@@ -85,13 +107,15 @@ void Hackamatch::runHackamatchIntro() {
 }
 
 void Hackamatch::displayUI() {
+    /***************************************************************************
+     * Displays the board UI, which in this case is a computer.
+     **************************************************************************/
     // Display top part of UI.
     displayTextFromFile("uiTop.txt");
 
-    // Display guesses and feedback.
+    // Display guesses and feedback row by row.
     for (int i = 0; i < numberOfTurns; i++) {
-        // Display each turn/row.
-        
+        // Code to display parts of the computer UI.
         std::cout << "           |   |                                         |    |\n           |   |  "
             << i+1;
         if (i+1 < 10) {
@@ -99,13 +123,14 @@ void Hackamatch::displayUI() {
         } else {
             std::cout << ":  ";
         }
+
         // Display player guesses.
         // It is assumed that playerGuesses has been initalised with place
         // holder guesses.
         for (int j = 0; j < MAX_CODE_LENGTH; j++) {
             // Iterate through array of strings.
             // It is assumed that if codeLength < MAX_CODE_LENGTH that the rest
-            // of the array is fillef with " ".
+            // of the array is filled with " ".
             std::cout << playerGuesses[i][j] << " ";
         }
         std::cout << "  ";
@@ -148,11 +173,16 @@ void Hackamatch::displayUI() {
 }
 
 void Hackamatch::displayHint() {
+    /***************************************************************************
+     * Reveals one digit of the passcode as chosen by the user.
+     **************************************************************************/
     std::string prompt = "\nWhich digit would you like to have revealed? Enter its position below.\n0 = 1st position, 1 = 2nd position etc.\n\nPosition: ";
     int digitIndex = getIntInput(prompt, 0, codeLength-1);
 
     bool alreadyDisplayed = false;
     while (!alreadyDisplayed) {
+        // If digit is = "*", it means it is not yet displayed on the UI, so
+        // this needs to be changed to the actual digit.
         if (passcodeDisplay[digitIndex] == "*") {
             alreadyDisplayed = true;
             passcodeDisplay[digitIndex] = std::to_string(passcode[digitIndex]);
@@ -167,6 +197,14 @@ void Hackamatch::displayHint() {
 }
 
 void Hackamatch::playUserTurn() {
+    /***************************************************************************
+     * The user's turn:
+     *  1. Asks if they want to enter a passcode or a command.
+     *  2. Asks for input.
+     *  3. Validates input.
+     * 
+     * Every turn ends after the user has inputted a guess.
+     **************************************************************************/
     std::string userChoice;
     do {
         // Ask user if they want to guess the code or enter a command.
@@ -178,6 +216,7 @@ void Hackamatch::playUserTurn() {
         userChoice = getStringInput(prompt, error, choices);
 
         if (userChoice == "C") {
+            // Commands taken from Hackamon class.
             game->displayCommands();
             std::vector<std::string> commands = game->getCommands();
             std::string choice = getStringInput("My choice: ",
@@ -198,6 +237,7 @@ void Hackamatch::playUserTurn() {
                 return;
             }
 
+            // Process commands as per Hackamon class if not HINT/FORFEIT.
             game->processPlayerChoice();
         }
     } while (userChoice != "G");
@@ -217,9 +257,15 @@ void Hackamatch::playUserTurn() {
     while (currPlayerGuess.size() != codeLength);
 }
 
-// Updates playerGuesses and feedback.
 void Hackamatch::getTurnFeedback(std::vector<int> passcodeTemp) {
+    /***************************************************************************
+     * Processes player's guess and updates player guess and feedback vector\
+     * accordingly.
+     * 
+     * @param   passcodeTemp    Copy of passcode.
+     **************************************************************************/
     int turnNo = numberOfTurns - turnsLeft;
+
     // Counts the number of correct digits and positions.
     int correctDigitAndPos = 0;
     // Counts correct digits only.
@@ -228,17 +274,21 @@ void Hackamatch::getTurnFeedback(std::vector<int> passcodeTemp) {
     // Iterate through every character of currPlayerGuess to check for digits
     // that are in the correct position.
     for (int i = 0; i < codeLength; i++) {
-        // Updates playerGuess vector.
+        // Adds current guess to the playerGuess vector to keep a tally.
         playerGuesses[turnNo][i] = std::to_string(currPlayerGuess[i]);
         	
         // Check if correct position and digit.
         if (passcodeTemp[i] == currPlayerGuess[i]) {
             correctDigitAndPos++;
+
+            // Replace temps with other digits outside of numberOfOptions so
+            // that they don't get checked again by feedback.
             passcodeTemp[i] = -1;
             currPlayerGuess[i] = 10;
         }
     }
 
+    // Checks if any remaining digits are correct but in the wrong position.
     for (int i = 0; i < codeLength; i++) {
         // Find currPlayerGuess[i] in passcode.
         std::vector<int>::iterator it = std::find(passcodeTemp.begin(), passcodeTemp.end(), currPlayerGuess[i]);
@@ -247,12 +297,14 @@ void Hackamatch::getTurnFeedback(std::vector<int> passcodeTemp) {
         if (it != passcodeTemp.end()) {
             correctDigitOnly++;
             int index = std::distance(passcodeTemp.begin(), it);
+
+            // Replace temps as above.
             currPlayerGuess[i] = 10;
             passcodeTemp[index] = -1;
         }
     }
 
-    // Update feedback vector.
+    // Populate feedback vector with the right amount of "=" and "-".
     int i = 0;
     while (i < correctDigitOnly) {
         feedback[turnNo][i++] = '-';
@@ -266,14 +318,20 @@ void Hackamatch::getTurnFeedback(std::vector<int> passcodeTemp) {
     // Reset currPlayerGuess
     currPlayerGuess = {};
 
+    // WIN condition = if the number of correct digits = length of passcode.
     if (correctDigitAndPos == codeLength) {
         currentState = "WIN";
     }
 }
 
 void Hackamatch::displayGameOverScreen() {
+    /***************************************************************************
+     * Game over screen displayed at the end of every hackamatch.
+     **************************************************************************/
     displayTextFromFile("gameOverUITop.txt");
     std::cout << "             |   |             |   ";
+
+    // Screen displays either YOU WIN or YOU LOSE.
     if (currentState == "WIN") {
         std::cout << "YOU WIN ";
     } else {
@@ -281,11 +339,11 @@ void Hackamatch::displayGameOverScreen() {
     }
     std::cout << "  |             |    |\n             |   |             +-------------+             |    |\n             |   |                                         |    |\n             |   |   PASSCODE: ";
     
-    // Replace '*' in passocdeDisplay to actual passcode.
+    // Replace '*' in passocdeDisplay to actual passcode, to be revealed to 
+    // player.
     for (int i = 0; i < codeLength; i++){ 
         passcodeDisplay[i] = std::to_string(passcode[i]);
     }
-    
     for (int i = 0; i < MAX_CODE_LENGTH; i++){ 
         std::cout << passcodeDisplay[i] << " ";
     }
@@ -294,6 +352,18 @@ void Hackamatch::displayGameOverScreen() {
 }
 
 void Hackamatch::displayResults(int base, int bonus, int penalty, int total, int playerLevel, std::string playerClass, int pointsToLevelUp) {
+    /***************************************************************************
+     * Displays the numerical results of the hackamatch that just ended, and 
+     * some of the player stats.
+     * 
+     * @param   base    Base points that could be earned in game.
+     * @param   bonus   Bonus points the player earned for using less turns.
+     * @param   penalty Deductions from using hins.
+     * @param   total   Player's new total points earned at Hackamon!
+     * @param   playerLevel Player's new level.
+     * @param   playerClass Player's new class.
+     * @param   pointsToLevelUp Points needed for the player to level up.
+     **************************************************************************/
     std::cout << "\n\n                     ************************************\n\n                                 GAME RESULTS\n\n                     BASE POINTS: "
         << base << "\n                     TURNS LEFT BONUS: " << bonus << "\n                     HINT PENALTY: "
         << penalty << "\n\n                     TOTAL POINTS: " << total << "\n\n                     ************************************\n\n                                 PLAYER STATS\n\n                     LEVEL: "
@@ -302,10 +372,15 @@ void Hackamatch::displayResults(int base, int bonus, int penalty, int total, int
 }
 
 void Hackamatch::updatePlayerStats(Player *player) {
+    /***************************************************************************
+     * Updates the player's stats accorrding to how this hackamatch went.
+     **************************************************************************/
     int points = 0;
     int base = 0;
     int bonus = 0;
     int penalty = 0;
+
+    // Earn points only if player wins.
     if (currentState == "WIN") {
         // Add base points earned.
         if (hackamatchDifficulty == "EASY") {
@@ -316,7 +391,7 @@ void Hackamatch::updatePlayerStats(Player *player) {
             base = 500;
         } else if (hackamatchDifficulty == "EXTREME") {
             base = 1000;
-            player->winExtremeDifficulty = true;
+            player->winExtremeDifficulty = true; // Unlocks champion class.
         }
 
         // Bonus points for turnsLeft.
@@ -339,7 +414,12 @@ void Hackamatch::updatePlayerStats(Player *player) {
 }
 
 void Hackamatch::run() {
+    /***************************************************************************
+     * Runs a hackamatch.
+     **************************************************************************/
     runHackamatchIntro();
+
+    // Game state will remain active until either: WIN or LOSE.
     while (currentState == "ACTIVE" && turnsLeft > 0) {
         displayUI();
         playUserTurn();
@@ -351,6 +431,8 @@ void Hackamatch::run() {
         turnsLeft--;
     }
 
+    // If game state at this point = ACTIVE/LOSE = LOSE game.
+    // If game state at this point = WIN = WIN game.
     displayGameOverScreen();
     std::cout << "\n\n                     ************************************\n"
         << "                           Press ENTER to continue.\n"

@@ -1,3 +1,8 @@
+/*
+ * This file is part of 2019 SEM 2 FIT1048 Assignment 3.
+ * Created October 2019 by Jasmine Banares, Student ID: 2973 8660.
+ */
+
 #include <string>
 #include <iostream>
 #include "player.h"
@@ -24,10 +29,18 @@ Player::~Player() {
 
 // SETTERS.
 void Player::setPlayerName(std::string name) {
+    /***************************************************************************
+     * Sets the name of the player
+     * 
+     * @param   name    Name of the player.
+     **************************************************************************/
     playerName = name;
 }
 
 void Player::setPointsToLevelUp() {
+    /***************************************************************************
+     * Determines how many points is needed to level up in a given class.
+     **************************************************************************/
     switch (playerClass) {
         case BABY:
             pointsToLevelUp = 500;
@@ -48,6 +61,12 @@ void Player::setPointsToLevelUp() {
 }
 
 void Player::setPointsEarnedLastMatch(int pointsEarned) {
+    /***************************************************************************
+     * Sets points earned in the latest match finished.
+     * 
+     * @param   pointsEarned    Points earned in the last completed/forfetied
+     *                          hackamatch.
+     **************************************************************************/
     pointsEarnedLastMatch = pointsEarned;
 }
 
@@ -62,10 +81,20 @@ std::string Player::getPlayerName() {
 }
 
 int Player::getPlayerLevel() {
+    /***************************************************************************
+     * Returns the player's current level.
+     * 
+     * @return  The player's level.
+     **************************************************************************/
     return playerLevel;
 }
 
 std::string Player::getPlayerClass() {
+    /***************************************************************************
+     * Returns a stringified version of the player's class.
+     * 
+     * @return  Player's class.
+     **************************************************************************/
     if (playerClass == BABY) {
         return "BABY";
     } else if (playerClass == NOVICE) {
@@ -77,15 +106,27 @@ std::string Player::getPlayerClass() {
     } else if (playerClass == CHAMPION) {
         return "CHAMPION";
     } else {
-        return "ERROR";
+        return "ERROR: Player::getPlayerClass() did not return a value.";
     }
 }
 
 int Player:: getPointsToLevelUp() {
+    /***************************************************************************
+     * Gets the remaining number of points needed for player to level up.
+     * 
+     * @return Points needed to level up.
+     **************************************************************************/
     return pointsToLevelUp;
 }
 
 void Player::updateWinLossStatistics(bool win) {
+    /***************************************************************************
+     * Updates the player's win-loss stats. Also demotes the player a level down
+     * if they have a 5 loss streak. Promotes player a level up if 5 win streak
+     * (optional).
+     * 
+     * @param   win     True if player won last match, false otherwise.
+     **************************************************************************/
     if (win) {
         totalWins++;
         currentWinStreak++;
@@ -115,9 +156,13 @@ void Player::updateWinLossStatistics(bool win) {
     }
 }
 
-// Updates total points and levels up a person if needed.
 void Player::updatePointsCounters() {
+    /***************************************************************************
+     * Updates players points attributes and levels up a person if needed.
+     **************************************************************************/
     playerTotalPoints += pointsEarnedLastMatch;
+
+    // pointsToAdd = points not yet counted towards points needed to level up.
     int pointsToAdd = pointsEarnedLastMatch;
     while (pointsToAdd != 0) {
         if (pointsToAdd > pointsToLevelUp) {
@@ -133,18 +178,27 @@ void Player::updatePointsCounters() {
 }
 
 void Player::levelUp() {
+    /***************************************************************************
+     * Increases a player's level by 1, and updates their class accordingly.
+     **************************************************************************/
     playerLevel++;
     setPointsToLevelUp();
     updateClass();
 }
 
 void Player::levelDown() {
+    /***************************************************************************
+     * Decreases a player's level by 1, and updates their class accordingly.
+     **************************************************************************/
     playerLevel++;
     setPointsToLevelUp();
     updateClass();
 }
 
 void Player::updateClass() {
+    /***************************************************************************
+     * Updates a player's class according to their level.
+     **************************************************************************/
     if (playerLevel > 15 && winExtremeDifficulty) {
         playerClass = CHAMPION;
     } else if (playerLevel >11) {
@@ -159,6 +213,9 @@ void Player::updateClass() {
 }
 
 void Player::displayStats() {
+    /***************************************************************************
+     * Displays the player's stats in a neat UI.
+     **************************************************************************/
     std::cout << "                     ************************************\n\n                                 PLAYER STATS\n\n                     LEVEL: "
         << playerLevel << "\n                     CLASS: " << getPlayerClass() << "\n\n                     TOTAL POINTS: "
         << playerTotalPoints << "\n                     POINTS UNTIL NEXT LEVEL: "

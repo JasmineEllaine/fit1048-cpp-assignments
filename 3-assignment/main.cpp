@@ -1,3 +1,17 @@
+/*
+ * Author: Jasmine Banares
+ * Student ID: 2973 8660
+ * Project: Assignment 3: Custom Mastermind Game (Hackamon!)
+ * 
+ * This application enables the player to start a single player game of
+ * Hackamon! – a themed game of mastermind where instead of cracking a colour
+ * code, you crack passwords to a computer.
+ * 
+ * IMPORTANT NOTE TO MARKER: Please disable "srand(time(0))" from main() to get
+ * a more predictable passcode to crack during the game. The first passcode will
+ * always be "3112" if disabled.
+ */
+
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -35,7 +49,8 @@ void displayTextFromFile(std::string filename) {
 
 void pause() {
     /***************************************************************************
-     * Pauses the program until the user presses ENTER.
+     * Pauses the program until the user presses ENTER. Alternative to
+     * system("pause") because I use a MAC.
      **************************************************************************/
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get();
@@ -141,6 +156,8 @@ int getIntInput(std::string prompt, int lo, int hi) {
 }
 
 int main() {
+    // Randomises passcode generated every time application starts. Disable if 
+    // you need the passcodes to be the same every run.
     srand(time(0));
 
     // Display the home screen.
