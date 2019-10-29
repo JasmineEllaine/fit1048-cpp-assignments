@@ -84,6 +84,9 @@ void Hackamon::processPlayerChoice() {
         previousState = hackamonState;
         hackamonState = "HELP";
     } else if (playerCommandChoice == "EXIT") {
+        exitGame = true;
+        displayTextFromFile("exitUI.txt");
+        std::exit(EXIT_SUCCESS);
     } else if (playerCommandChoice == "1") {
         displayTextFromFile("1-hackamatchRules.txt");
         pause();
@@ -145,7 +148,7 @@ void Hackamon::run(std::string gameStartType) {
     if (gameStartType == "LOAD"){ 
         // ADD CODE HERE FOR IF GAME IS LOADED
     } else {
-        // runGameIntro();
+        runGameIntro();
         while (!exitGame) {
             displayCommands();
             playerCommandChoice = getStringInput("My choice: ",
