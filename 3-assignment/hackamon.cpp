@@ -148,7 +148,7 @@ void Hackamon::run(std::string gameStartType) {
     if (gameStartType == "LOAD"){ 
         // ADD CODE HERE FOR IF GAME IS LOADED
     } else {
-        runGameIntro();
+        // runGameIntro();
         while (!exitGame) {
             displayCommands();
             playerCommandChoice = getStringInput("My choice: ",

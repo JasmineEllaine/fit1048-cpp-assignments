@@ -1,3 +1,31 @@
+PASSCODE GENERATION:
+--------------------
+
+                    |  EASY  |  MEDIUM  |  HARD  |  EXTREME   
+        -----------------------------------------------------
+        PASSCODE    |        |          |        |          
+        LENGTH      |   4    |    4     |   8    |    10
+        ------------|--------|----------|--------|-----------
+        DIGITS      |        |          |        |          
+        ALLOWED     |  0-3   |   0-7    |  0-9   |    0-9
+        IN CODE     |        |          |        |          
+        ------------|--------|----------|--------|-----------
+        NUMBER OF   |        |          |        |          
+        GUESSES     |   10   |    10    |   20   |    20
+                    |        |          |        |          
+
+POINTS CALCULATION:
+-------------------
+
+                |  EASY  |  MEDIUM  |  HARD  |  EXTREME   
+        -------------------------------------------------
+        BASE    |        |          |        |          
+        POINTS  |  200   |   300    |  500   |   1000
+                |        |          |        |          
+
+Select option [1] in the help centre for a more detailed description of how the
+psscode is generated, and points calculated.
+
 ******************************************** 
          PRESS [ENTER] TO CONTINUE.
 ********************************************

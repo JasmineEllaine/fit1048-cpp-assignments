@@ -1,3 +1,38 @@
+BABY CLASS:
+-----------
+Level: 1-2
+Points required to level up: 500
+Difficulties allowed: Easy only
+
+NOVICE CLASS:
+-----------
+Level: 3-6
+Points required to level up: 500
+Difficulties allowed: Easy, medium, hard
+
+LEADER CLASS:
+-----------
+Level: 7-11
+Points required to level up: 1000
+Difficulties allowed: Easy, medium, hard
+
+ELITE CLASS:
+-----------
+Level: 12+
+Points required to level up: 1500
+Difficulties allowed: Easy, medium, hard, extreme (at level 15)
+*Once level 15 is reached, the player may play on extreme to try to rank up
+    to the champion class. They will not be granted this rank until they have
+    beaten extreme.
+
+CHAMPION CLASS:
+-----------
+Level: 15+
+Points required to level up: 2000
+Difficulties allowed: Easy, medium, hard, extreme
+*Earliest level at which champion rank is granted is at level 15. Players who
+    don't beat extreme until later levels won't be champion until then.
+
 ******************************************** 
          PRESS [ENTER] TO CONTINUE.
 ********************************************
