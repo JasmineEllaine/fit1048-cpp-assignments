@@ -164,13 +164,13 @@ void Player::updatePointsCounters() {
 
     // pointsToAdd = points not yet counted towards points needed to level up.
     int pointsToAdd = pointsEarnedLastMatch;
-    while (pointsToAdd != 0) {
+    while (pointsToAdd > 0) {
         if (pointsToAdd > pointsToLevelUp) {
             int difference = pointsToAdd - pointsToLevelUp;
             pointsToAdd = difference;
             levelUp();
         } else {
-            int difference = pointsToLevelUp- pointsToAdd;
+            int difference = pointsToLevelUp - pointsToAdd;
             pointsToLevelUp = difference;
             pointsToAdd = 0;
         }
@@ -190,7 +190,7 @@ void Player::levelDown() {
     /***************************************************************************
      * Decreases a player's level by 1, and updates their class accordingly.
      **************************************************************************/
-    playerLevel++;
+    playerLevel--;
     setPointsToLevelUp();
     updateClass();
 }
@@ -201,7 +201,7 @@ void Player::updateClass() {
      **************************************************************************/
     if (playerLevel > 15 && winExtremeDifficulty) {
         playerClass = CHAMPION;
-    } else if (playerLevel >11) {
+    } else if (playerLevel > 11) {
         playerClass = ELITE;
     } else if (playerLevel > 6) {
         playerClass = LEADER;

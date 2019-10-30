@@ -72,7 +72,7 @@ Hackamatch::Hackamatch(std::string difficulty, std::string name, Hackamon *hacka
 }
 
 Hackamatch::~Hackamatch() {
-    delete passcodeDisplay;
+    delete[] passcodeDisplay;
 }
 
 void Hackamatch::generatePasscode() {
